@@ -4,5 +4,4 @@ description: This is a Design Process Documentation of Patient App created for H
 
 # Patient App
 
-## Design Process Documentation of SPOT Patient App
-
+This is a patient app
