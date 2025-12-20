@@ -22,8 +22,12 @@ export function App() {
     applyTheme(theme);
   }, []);
 
+  // Get base path from Vite's import.meta.env.BASE_URL
+  // This will be "/" for local dev and "/pr4veen/" for GitHub Pages if configured
+  const basename = import.meta.env.BASE_URL;
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<ProjectsPage />} />
