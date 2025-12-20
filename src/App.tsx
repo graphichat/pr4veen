@@ -1,9 +1,40 @@
-export function App() {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="font-medium">Hello World</div>
-    </div>
-  )
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Home } from "@/pages/Home";
+import { ProjectsPage } from "@/pages/ProjectsPage";
+import { AboutPage } from "@/pages/AboutPage";
+import { ContactPage } from "@/pages/ContactPage";
+import { DashboardDemo } from "@/pages/DashboardDemo";
+import { FormsDemo } from "@/pages/FormsDemo";
+import { ProjectDetail } from "@/pages/ProjectDetail";
+import { applyTheme, getThemePreference } from "@/lib/theme";
+import { useEffect } from "react";
+
+// Initialize theme on app load
+if (typeof window !== "undefined") {
+  const theme = getThemePreference();
+  applyTheme(theme);
 }
 
-export default App
+export function App() {
+  useEffect(() => {
+    // Apply theme on mount
+    const theme = getThemePreference();
+    applyTheme(theme);
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/project/:projectId" element={<ProjectDetail />} />
+        <Route path="/demo/dashboard" element={<DashboardDemo />} />
+        <Route path="/demo/forms" element={<FormsDemo />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;

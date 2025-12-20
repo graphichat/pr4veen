@@ -1,0 +1,154 @@
+import { Link } from "react-router-dom";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ExternalLink, ArrowRight } from "lucide-react";
+import { type Project } from "@/data/projects";
+import { useRef, useEffect } from "react";
+import { animate } from "motion";
+import { cn } from "@/lib/utils";
+
+interface ProjectCardProps {
+  project: Project;
+}
+
+export function ProjectCard({ project }: ProjectCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+
+    const card = cardRef.current;
+
+    const handleMouseEnter = () => {
+      animate(
+        card,
+        {
+          y: -4,
+        },
+        {
+          duration: 0.2,
+          ease: "easeOut",
+        }
+      );
+    };
+
+    const handleMouseLeave = () => {
+      animate(
+        card,
+        {
+          y: 0,
+        },
+        {
+          duration: 0.2,
+          ease: "easeOut",
+        }
+      );
+    };
+
+    card.addEventListener("mouseenter", handleMouseEnter);
+    card.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      card.removeEventListener("mouseenter", handleMouseEnter);
+      card.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
+  const keyMetric = project.uxHighlights?.[0];
+  const topTechStack = project.techStack.slice(0, 3);
+
+  // Generate gradient colors based on project ID
+  const gradientColors = [
+    "from-blue-500/60 via-purple-500/60 to-pink-500/60",
+    "from-green-500/60 via-emerald-500/60 to-teal-500/60",
+    "from-orange-500/60 via-red-500/60 to-rose-500/60",
+    "from-indigo-500/60 via-blue-500/60 to-cyan-500/60",
+    "from-violet-500/60 via-purple-500/60 to-fuchsia-500/60",
+    "from-amber-500/60 via-yellow-500/60 to-orange-500/60",
+  ];
+  const gradientIndex = project.id.charCodeAt(0) % gradientColors.length;
+  const gradient = gradientColors[gradientIndex];
+
+  return (
+    <Card
+      ref={cardRef}
+      className="group flex h-full flex-col overflow-hidden pt-0 transition-all hover:border-primary/50 hover:shadow-md"
+    >
+      {/* Image Section - Following shadcn pattern: image as first child */}
+      <div className={cn("relative aspect-video w-full bg-gradient-to-br", gradient)}>
+        {project.featured && (
+          <Badge
+            variant="secondary"
+            className="absolute top-3 right-3 z-10 bg-background/90 backdrop-blur-sm"
+          >
+            Featured
+          </Badge>
+        )}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-4xl font-bold text-white/30 select-none">
+            {project.title.charAt(0)}
+          </div>
+        </div>
+      </div>
+
+      {/* Body Section */}
+      <CardHeader className="pb-3">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1 min-w-0">
+            <CardTitle className="text-lg font-semibold leading-tight mb-2">
+              {project.title}
+            </CardTitle>
+            <CardDescription className="text-sm leading-relaxed line-clamp-2">
+              {project.description}
+            </CardDescription>
+          </div>
+        </div>
+      </CardHeader>
+
+      <CardContent className="flex-1 space-y-3">
+        {keyMetric && (
+          <div className="text-sm font-medium text-primary">
+            {keyMetric}
+          </div>
+        )}
+
+        {topTechStack.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {topTechStack.map((tech) => (
+              <Badge key={tech} variant="outline" className="text-xs font-normal">
+                {tech}
+              </Badge>
+            ))}
+            {project.techStack.length > 3 && (
+              <Badge variant="outline" className="text-xs text-muted-foreground font-normal">
+                +{project.techStack.length - 3}
+              </Badge>
+            )}
+          </div>
+        )}
+      </CardContent>
+
+      {/* Footer Section */}
+      <CardFooter className="pt-4 flex gap-2">
+        <Button
+          asChild
+          variant="outline"
+          className="flex-1 group-hover:bg-primary group-hover:text-primary-foreground"
+        >
+          <Link to={`/project/${project.id}`}>
+            View Details
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </Button>
+        {project.demoRoute && (
+          <Button asChild variant="ghost" size="icon" className="shrink-0">
+            <Link to={project.demoRoute} title="View Demo">
+              <ExternalLink className="h-4 w-4" />
+            </Link>
+          </Button>
+        )}
+      </CardFooter>
+    </Card>
+  );
+}
