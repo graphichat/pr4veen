@@ -23,7 +23,7 @@ export function App() {
   }, []);
 
   // Get base path from Vite's import.meta.env.BASE_URL
-  // This will be "/" for local dev and "/pr4veen/" for GitHub Pages if configured
+  // For custom domain (pr4veen.in), base path is "/"
   const basename = import.meta.env.BASE_URL;
 
   return (

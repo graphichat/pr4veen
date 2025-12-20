@@ -4,19 +4,14 @@ import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 
 // https://vite.dev/config/
-export default defineConfig(({ command }) => {
-  // Base path for GitHub Pages
-  // Use "/pr4veen/" for production builds (GitHub Pages)
-  // Use "/" for local development (npm run dev)
-  const base = command === "build" ? "/pr4veen/" : "/";
-
-  return {
-    base,
-    plugins: [react(), tailwindcss()],
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "./src"),
-      },
+export default defineConfig({
+  // Base path set to "/" for custom domain (pr4veen.in)
+  // Custom domains on GitHub Pages serve from root, not subdirectory
+  base: "/",
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
     },
-  };
+  },
 })

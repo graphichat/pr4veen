@@ -4,9 +4,9 @@
 
 ✅ **Removed vite.svg reference** - The 404 error for `vite.svg` has been fixed by removing the unnecessary favicon reference from `index.html`
 
-✅ **Configured base path** - Updated `vite.config.ts` to use `/pr4veen/` as the base path for GitHub Pages
+✅ **Configured base path** - Updated `vite.config.ts` to use `/` as the base path for custom domain (pr4veen.in)
 
-✅ **Updated BrowserRouter** - Added `basename` prop to BrowserRouter to work correctly with GitHub Pages subdirectory
+✅ **Updated BrowserRouter** - Added `basename` prop to BrowserRouter to work correctly with routing
 
 ✅ **Updated page title** - Changed from "vite-app" to "Praveen Kumar N - Product Design Lead Portfolio"
 
@@ -21,7 +21,7 @@
    - Under "Source", select "GitHub Actions"
    - The workflow will automatically deploy your site
 
-3. Your site will be available at: `https://graphichat.github.io/pr4veen/`
+3. Your site will be available at: `https://pr4veen.in` (custom domain)
 
 ### Option 2: Manual Deployment
 
@@ -35,16 +35,24 @@
    - Under "Source", select the branch containing the `dist` folder
    - Set the folder to `/dist`
 
+### Custom Domain Setup
+
+The site is configured for custom domain `pr4veen.in`:
+
+1. **Base path**: Set to `/` in `vite.config.ts` (already configured)
+2. **DNS Configuration**: 
+   - Add a CNAME record pointing `pr4veen.in` to `graphichat.github.io`
+   - Or add A records pointing to GitHub Pages IP addresses
+3. **GitHub Pages Settings**:
+   - Go to Settings → Pages
+   - Under "Custom domain", enter `pr4veen.in`
+   - Enable "Enforce HTTPS" (recommended)
+
 ### Base Path Configuration
 
-The current configuration uses `/pr4veen/` as the base path. If you need to change this:
-
-1. **For project pages** (username.github.io/repository-name):
-   - Keep `base: "/pr4veen/"` in `vite.config.ts`
-
-2. **For user/organization pages** (username.github.io) or custom domain:
-   - Change `base: "/pr4veen/"` to `base: "/"` in `vite.config.ts`
-   - Rebuild and redeploy
+The current configuration uses `/` as the base path for custom domain hosting. This means:
+- Site loads at: `https://pr4veen.in` (root domain)
+- All routes work correctly: `pr4veen.in/projects`, `pr4veen.in/about`, etc.
 
 ## Verification
 
