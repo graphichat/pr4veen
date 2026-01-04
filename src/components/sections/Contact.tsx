@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Mail, Linkedin, Phone, ExternalLink } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { MotionDiv } from "@/components/animations/MotionDiv";
 
 export function Contact() {
@@ -45,54 +45,6 @@ export function Contact() {
                 <div>
                   <p className="font-medium">Phone</p>
                   <p className="text-sm text-muted-foreground">+91-99803 21700</p>
-                </div>
-              </a>
-              <a
-                href="https://linkedin.com/in/pr4veen"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-accent"
-              >
-                <Linkedin className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">LinkedIn</p>
-                  <p className="text-sm text-muted-foreground">linkedin.com/in/pr4veen</p>
-                </div>
-              </a>
-              <a
-                href="https://figma.com/@pr4veen"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-accent"
-              >
-                <ExternalLink className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">Figma</p>
-                  <p className="text-sm text-muted-foreground">figma.com/@pr4veen</p>
-                </div>
-              </a>
-              <a
-                href="https://medium.com/@pr4veen"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-accent"
-              >
-                <ExternalLink className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">Medium</p>
-                  <p className="text-sm text-muted-foreground">medium.com/@pr4veen</p>
-                </div>
-              </a>
-              <a
-                href="https://instagram.com/pr4veen_n"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-accent"
-              >
-                <ExternalLink className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium">Instagram</p>
-                  <p className="text-sm text-muted-foreground">instagram.com/pr4veen_n</p>
                 </div>
               </a>
             </CardContent>

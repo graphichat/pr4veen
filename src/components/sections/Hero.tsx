@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MotionDiv } from "@/components/animations/MotionDiv";
+import { BackgroundLines } from "@/components/ui/background-lines";
 import { useRef, useEffect } from "react";
 import { animate } from "motion";
 
@@ -30,8 +31,16 @@ export function Hero() {
 
 
   return (
-    <section className="relative flex min-h-[90vh] flex-col items-center justify-center px-4 py-20 text-center">
-      <div className="mx-auto max-w-4xl space-y-8">
+    <section className="relative flex min-h-screen flex-col items-center justify-center px-4 py-20 text-center overflow-hidden pb-32">
+      {/* Background Lines - positioned absolutely behind content */}
+      <div className="absolute inset-0 z-0">
+        <BackgroundLines className="h-full w-full" svgOptions={{ duration: 10 }}>
+          <div></div>
+        </BackgroundLines>
+      </div>
+      
+      {/* Content - centered with proper z-index */}
+      <div className="relative z-10 mx-auto max-w-4xl space-y-8 w-full">
         <MotionDiv animation="slideUp" delay={0} duration={0.8}>
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
@@ -60,9 +69,6 @@ export function Hero() {
             </Button>
           </div>
         </MotionDiv>
-      </div>
-      <div ref={arrowRef} className="absolute bottom-8 left-1/2 -translate-x-1/2">
-        <ArrowDown className="h-6 w-6 text-muted-foreground" />
       </div>
     </section>
   );

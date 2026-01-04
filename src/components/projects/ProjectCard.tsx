@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { type Project } from "@/data/projects";
 import { useRef, useEffect } from "react";
 import { animate } from "motion";
@@ -55,7 +55,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
     };
   }, []);
 
-  const keyMetric = project.uxHighlights?.[0];
   const topTechStack = project.techStack.slice(0, 3);
 
   // Generate gradient colors based on project ID
@@ -107,12 +106,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </CardHeader>
 
       <CardContent className="flex-1 space-y-3">
-        {keyMetric && (
-          <div className="text-sm font-medium text-primary">
-            {keyMetric}
-          </div>
-        )}
-
         {topTechStack.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {topTechStack.map((tech) => (
@@ -141,13 +134,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </Button>
-        {project.demoRoute && (
-          <Button asChild variant="ghost" size="icon" className="shrink-0">
-            <Link to={project.demoRoute} title="View Demo">
-              <ExternalLink className="h-4 w-4" />
-            </Link>
-          </Button>
-        )}
       </CardFooter>
     </Card>
   );

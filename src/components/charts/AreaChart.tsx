@@ -52,3 +52,4 @@ export function AreaChart({ data, dataKey, color = "hsl(var(--chart-1))" }: Area
   );
 }
 
+

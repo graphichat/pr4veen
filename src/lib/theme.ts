@@ -33,3 +33,4 @@ export function getEffectiveTheme(): "light" | "dark" {
   return root.classList.contains("dark") ? "dark" : "light";
 }
 
+

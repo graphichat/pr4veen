@@ -1,19 +1,22 @@
 import { projects } from "@/data/projects";
 import { ProjectCard } from "@/components/projects/ProjectCard";
+import { ProjectFeatureCard } from "@/components/projects/ProjectFeatureCard";
 import { MoreCard } from "@/components/projects/MoreCard";
 import { MotionDiv } from "@/components/animations/MotionDiv";
 import { useRef, useEffect, useState } from "react";
 import { animate, inView, stagger } from "motion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
+import { X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 interface ProjectsProps {
   limit?: number; // Optional limit for home page
+  featuredLayout?: boolean; // If true, use featured layout (alternating content/image)
 }
 
-export function Projects({ limit }: ProjectsProps = {}) {
+export function Projects({ limit, featuredLayout = false }: ProjectsProps = {}) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const projectsContainerRef = useRef<HTMLDivElement>(null);
 
@@ -65,6 +68,49 @@ export function Projects({ limit }: ProjectsProps = {}) {
     }
   }, [selectedCategory, displayedProjects]);
 
+  // Featured layout for home page
+  if (featuredLayout) {
+    return (
+      <section id="projects" className="px-4 py-20">
+        <div className="mx-auto max-w-6xl">
+          {/* Header */}
+          <MotionDiv animation="slideUp" trigger="inView" className="mb-12 text-center">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-3">Projects</h2>
+            <p className="mx-auto max-w-2xl text-muted-foreground">
+              A collection of SaaS products I've designed and built. Each project showcases the UX design process 
+              from research to implementation.
+            </p>
+          </MotionDiv>
+
+          {/* Featured Projects - Vertical Stack with Alternating Layout */}
+          {displayedProjects.length > 0 && (
+            <div ref={projectsContainerRef} className="space-y-16">
+              {displayedProjects.map((project, index) => (
+                <div key={project.id} data-project-card>
+                  <ProjectFeatureCard 
+                    project={project} 
+                    reverse={index % 2 === 0} // Alternate: index 0 = content left (reverse), index 1 = image left, index 2 = content left (reverse)
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* View All CTA */}
+          <MotionDiv animation="slideUp" trigger="inView" delay={0.4} className="mt-12 text-center">
+            <Button size="lg" asChild>
+              <Link to="/projects">
+                View All Projects
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </MotionDiv>
+        </div>
+      </section>
+    );
+  }
+
+  // Default grid layout for projects page
   return (
     <section id="projects" className="px-4 py-20">
       <div className="mx-auto max-w-7xl">

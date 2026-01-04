@@ -40,3 +40,4 @@ export function BarChart({ data, dataKey, color = "hsl(var(--chart-2))" }: BarCh
   );
 }
 
+
