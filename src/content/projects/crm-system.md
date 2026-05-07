@@ -2,7 +2,8 @@
 title: "CRM System"
 id: "crm-system"
 addedOn: "2024-06-18"
-projectImage: "../images/crm-system.jpg"
+projectImage: "/images/projects/crm-system.png"
+projectOldImage: "/images/projects/old-crm-system.png"
 description: "Customer relationship management system with lead tracking, pipeline management, and automated workflows."
 techStack:
   - "Figma"

@@ -74,7 +74,7 @@ export function ProjectsPage() {
         <ProjectSidebar currentProjectId="" />
 
         {/* Main Content */}
-        <main className="flex-1 min-w-0 ml-64">
+        <main className="flex-1 min-w-0 ml-0 lg:ml-64">
           <div className="mx-auto max-w-6xl px-6 py-8">
             {/* Header */}
             <MotionDiv animation="slideUp" trigger="mount" className="mb-8">

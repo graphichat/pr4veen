@@ -122,7 +122,7 @@ export function Home() {
       <Header activeSection={activeSection} />
       <main className="flex-1">
         <div style={{ display: activeSection === "home" ? "block" : "none" }}>
-          <Hero />
+          <Hero onNavigate={scrollToSection} />
         </div>
         <div ref={projectsRef} id="projects-section" style={{ display: activeSection === "projects" ? "block" : "none" }}>
           <Projects />

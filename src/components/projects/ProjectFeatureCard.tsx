@@ -37,16 +37,24 @@ export function ProjectFeatureCard({ project, reverse = false }: ProjectFeatureC
           {project.featured && (
             <Badge
               variant="secondary"
-              className="absolute top-4 right-4 z-10 bg-background/90 backdrop-blur-sm"
+              className="absolute top-4 right-4 z-10 bg-background/90 backdrop-blur-sm shadow-sm"
             >
               Featured
             </Badge>
           )}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-6xl font-bold text-white/30 select-none">
-              {project.title.charAt(0)}
+          {project.projectImage ? (
+            <img 
+              src={project.projectImage} 
+              alt={project.title} 
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-6xl font-bold text-white/30 select-none">
+                {project.title.charAt(0)}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 

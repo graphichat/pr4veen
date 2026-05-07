@@ -75,7 +75,7 @@ export function SectionOverview({ content }: SectionOverviewProps) {
   }
 
   return (
-    <aside className="fixed top-[73px] right-0 h-[calc(100vh-73px)] w-64 bg-background border-l">
+    <aside className="fixed top-[73px] right-0 h-[calc(100vh-73px)] w-64 bg-background border-l hidden xl:block">
       <div className="p-6 h-full overflow-hidden flex flex-col">
         <div className="space-y-2 flex-1 overflow-hidden">
           <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2 mb-4">

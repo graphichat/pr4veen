@@ -8,7 +8,7 @@ interface ProjectSidebarProps {
 
 export function ProjectSidebar({ currentProjectId = "" }: ProjectSidebarProps) {
   return (
-    <aside className="fixed top-[73px] left-0 h-[calc(100vh-73px)] w-64 border-r bg-background">
+    <aside className="fixed top-[73px] left-0 h-[calc(100vh-73px)] w-64 border-r bg-background hidden lg:block">
       <div className="p-6 h-full overflow-hidden flex flex-col">
         {/* Project List */}
         <div className="space-y-2 flex-1 overflow-hidden">

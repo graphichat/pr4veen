@@ -5,6 +5,7 @@ export interface ProjectMetadata {
   id: string;
   addedOn: string;
   projectImage: string;
+  projectOldImage?: string;
   description: string;
   techStack: string[];
   category: string;

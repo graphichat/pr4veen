@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { MotionDiv } from "@/components/animations/MotionDiv";
 import { useEffect } from "react";
 import { MarkdownContent } from "@/components/markdown/MarkdownContent";
+import { Compare } from "@/components/ui/compare";
 
 export function ProjectDetail() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -71,7 +72,7 @@ export function ProjectDetail() {
         <ProjectSidebar currentProjectId={project.id} />
 
         {/* Main Content */}
-        <main className="flex-1 min-w-0 ml-64 mr-64">
+        <main className="flex-1 min-w-0 ml-0 lg:ml-64 xl:mr-64">
           <div className="mx-auto max-w-4xl px-6 py-8">
             {/* Header */}
             <MotionDiv animation="slideUp" trigger="mount" className="mb-8">
@@ -89,8 +90,22 @@ export function ProjectDetail() {
               </div>
             </MotionDiv>
 
+            {/* Featured Compare Section - Before/After Redesign */}
+            {project.projectOldImage && (
+              <MotionDiv animation="slideUp" trigger="mount" delay={0.1} className="mb-12 mt-4">
+                <div className="w-full flex justify-center">
+                  <Compare 
+                    firstImage={project.projectOldImage} 
+                    secondImage={project.projectImage} 
+                    className="w-full max-w-[800px] aspect-[4/3] rounded-xl object-cover shadow-2xl border border-border" 
+                    autoplay={true}
+                  />
+                </div>
+              </MotionDiv>
+            )}
+
             {/* Markdown Content */}
-            <MotionDiv animation="slideUp" trigger="inView" delay={0.1}>
+            <MotionDiv animation="slideUp" trigger="inView" delay={0.2}>
               <MarkdownContent content={project.content} />
             </MotionDiv>
 

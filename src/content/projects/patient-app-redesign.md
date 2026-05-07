@@ -2,7 +2,8 @@
 title: "Patient App Redesign"
 id: "patient-app-redesign"
 addedOn: "2024-03-10"
-projectImage: "../images/patient-app-redesign.jpg"
+projectImage: "/images/projects/patient-app-redesign.png"
+projectOldImage: "/images/projects/old-patient-app.png"
 description: "Redesigned Patient App at HealthPlix, increasing user engagement by 35%."
 techStack:
   - "Figma"

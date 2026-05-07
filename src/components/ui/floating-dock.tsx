@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
 import {
   AnimatePresence,
   MotionValue,
@@ -61,76 +60,108 @@ const FloatingDockMobile = ({
   onItemClick?: (id: string) => void;
   className?: string;
 }) => {
-  const [open, setOpen] = useState(false);
+  const [scrollIndex, setScrollIndex] = useState(0);
+  const touchStartX = useRef(0);
+  const touchAccum = useRef(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchAccum.current = 0;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const currentX = e.touches[0].clientX;
+    const deltaX = touchStartX.current - currentX; // positive if swiping left
+    touchStartX.current = currentX;
+
+    touchAccum.current += deltaX;
+
+    // 45px swipe distance per index change gives a smooth, 1:1 natural feel
+    const threshold = 45;
+
+    if (Math.abs(touchAccum.current) >= threshold) {
+      const increments = Math.trunc(touchAccum.current / threshold);
+      setScrollIndex((prev) => {
+        const next = prev + increments;
+        return Math.max(0, Math.min(items.length - 1, next));
+      });
+      touchAccum.current -= increments * threshold; // keep the remainder
+    }
+  };
+
+  // Keep a click handler to allow manual overrides
+  const handleItemClick = (id: string, idx: number) => {
+    setScrollIndex(idx);
+    onItemClick?.(id);
+  };
+
   return (
-    <div className={cn("relative block md:hidden", className)}>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            layoutId="nav"
-            className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2"
-          >
-            {items.map((item, idx) => {
-              const isActive = activeItem === item.id;
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  exit={{
-                    opacity: 0,
-                    y: 10,
-                    transition: {
-                      delay: idx * 0.05,
-                    },
-                  }}
-                  transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-                >
-                  {item.type === "external" && item.href ? (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cn(
-                        "flex h-10 w-10 items-center justify-center rounded-full transition-colors",
-                        isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-gray-50 dark:bg-neutral-900"
-                      )}
-                    >
-                      <div className="h-4 w-4">{item.icon}</div>
-                    </a>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        onItemClick?.(item.id);
-                        setOpen(false);
-                      }}
-                      className={cn(
-                        "flex h-10 w-10 items-center justify-center rounded-full transition-colors",
-                        isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-gray-50 dark:bg-neutral-900"
-                      )}
-                    >
-                      <div className="h-4 w-4">{item.icon}</div>
-                    </button>
-                  )}
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <button
-        onClick={() => setOpen(!open)}
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-800"
+    <div className={cn("relative block md:hidden w-full max-w-[calc(100vw-2rem)]", className)}>
+      <div 
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        className="flex h-16 items-center gap-4 rounded-2xl bg-gray-50/90 px-4 dark:bg-neutral-900/90 backdrop-blur-md overflow-x-auto shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-black/5 dark:border-white/10 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x"
       >
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-neutral-500 dark:text-neutral-400" />
-      </button>
+        {items.map((item, idx) => {
+          const isActive = activeItem === item.id;
+          const isScrollActive = scrollIndex === idx;
+          
+          const content = (
+            <motion.div
+              layout
+              className={cn(
+                "relative flex h-10 items-center justify-center rounded-full transition-colors",
+                isActive
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-gray-200 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-300 hover:bg-gray-300 dark:hover:bg-neutral-700",
+                isScrollActive ? "w-auto px-4 gap-2" : "w-10 shrink-0"
+              )}
+            >
+              <motion.div layout className="h-5 w-5 flex items-center justify-center shrink-0">
+                {item.icon}
+              </motion.div>
+              <AnimatePresence>
+                {isScrollActive && (
+                  <motion.span 
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: "auto" }}
+                    exit={{ opacity: 0, width: 0 }}
+                    className="text-sm font-medium whitespace-nowrap overflow-hidden"
+                  >
+                    {item.title}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          );
+
+          if (item.type === "external" && item.href) {
+            return (
+              <a
+                key={item.id}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0"
+                onClick={() => handleItemClick(item.id, idx)}
+              >
+                {content}
+              </a>
+            );
+          }
+
+          return (
+            <button
+              key={item.id}
+              onClick={() => handleItemClick(item.id, idx)}
+              className="shrink-0 cursor-pointer"
+              type="button"
+            >
+              {content}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -75,20 +75,28 @@ export function ProjectCard({ project }: ProjectCardProps) {
       className="group flex h-full flex-col overflow-hidden pt-0 transition-all hover:border-primary/50 hover:shadow-md"
     >
       {/* Image Section - Following shadcn pattern: image as first child */}
-      <div className={cn("relative aspect-video w-full bg-gradient-to-br", gradient)}>
+      <div className={cn("relative aspect-video w-full overflow-hidden bg-gradient-to-br", gradient)}>
         {project.featured && (
           <Badge
             variant="secondary"
-            className="absolute top-3 right-3 z-10 bg-background/90 backdrop-blur-sm"
+            className="absolute top-3 right-3 z-10 bg-background/90 backdrop-blur-sm shadow-sm"
           >
             Featured
           </Badge>
         )}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-4xl font-bold text-white/30 select-none">
-            {project.title.charAt(0)}
+        {project.projectImage ? (
+          <img 
+            src={project.projectImage} 
+            alt={project.title} 
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-4xl font-bold text-white/30 select-none">
+              {project.title.charAt(0)}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Body Section */}

@@ -71,7 +71,7 @@ export function Projects({ limit, featuredLayout = false }: ProjectsProps = {}) 
   // Featured layout for home page
   if (featuredLayout) {
     return (
-      <section id="projects" className="px-4 py-20">
+      <section id="projects" className="px-4 py-12 sm:py-20">
         <div className="mx-auto max-w-6xl">
           {/* Header */}
           <MotionDiv animation="slideUp" trigger="inView" className="mb-12 text-center">
@@ -112,7 +112,7 @@ export function Projects({ limit, featuredLayout = false }: ProjectsProps = {}) 
 
   // Default grid layout for projects page
   return (
-    <section id="projects" className="px-4 py-20">
+    <section id="projects" className="px-4 py-12 sm:py-20">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <MotionDiv animation="slideUp" trigger="inView" className="mb-12 text-center">

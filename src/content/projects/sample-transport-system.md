@@ -2,7 +2,8 @@
 title: "Sample Transport Tracking Module"
 id: "sample-transport-system"
 addedOn: "2024-04-05"
-projectImage: "../images/sample-transport-system.jpg"
+projectImage: "/images/projects/sample-transport-system.png"
+projectOldImage: "/images/projects/old-sample-transport.png"
 description: "Designed a comprehensive Sample Transport Tracking Module at IQLine to track and transfer medical samples between facilities with real-time monitoring and status updates."
 techStack:
   - "Figma"

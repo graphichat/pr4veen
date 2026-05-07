@@ -2,7 +2,8 @@
 title: "EMR Visit Pad Redesign"
 id: "emr-visit-pad"
 addedOn: "2024-01-15"
-projectImage: "../images/emr-visit-pad.jpg"
+projectImage: "/images/projects/emr-visit-pad.png"
+projectOldImage: "/images/projects/old-emr-pad.png"
 description: "Redesigned the EMR Visit Pad at HealthPlix, boosting user satisfaction by 25% and cutting doctors' note-taking time by 30%."
 techStack:
   - "Figma"

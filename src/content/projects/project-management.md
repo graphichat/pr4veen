@@ -2,7 +2,8 @@
 title: "Project Management Tool"
 id: "project-management"
 addedOn: "2024-05-12"
-projectImage: "../images/project-management.jpg"
+projectImage: "/images/projects/project-management.png"
+projectOldImage: "/images/projects/old-project-management.png"
 description: "A collaborative project management solution with kanban boards, time tracking, and team communication."
 techStack:
   - "Figma"

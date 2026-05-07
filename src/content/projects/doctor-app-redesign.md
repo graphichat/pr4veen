@@ -2,7 +2,8 @@
 title: "Doctor App Redesign"
 id: "doctor-app-redesign"
 addedOn: "2024-02-20"
-projectImage: "../images/doctor-app-redesign.jpg"
+projectImage: "/images/projects/doctor-app-redesign.png"
+projectOldImage: "/images/projects/old-doctor-app.png"
 description: "Launched redesigned Doctor App at HealthPlix, increasing new user adoption by 40% in six months."
 techStack:
   - "Figma"
