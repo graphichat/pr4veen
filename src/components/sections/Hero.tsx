@@ -32,7 +32,7 @@ export function Hero({ onNavigate }: { onNavigate?: (sectionId: string) => void 
 
   return (
     <AuroraBackground>
-      <section className="relative flex min-h-screen flex-col items-center justify-center px-4 py-12 sm:py-20 text-center overflow-hidden pb-24 sm:pb-32 w-full">
+      <section className="relative flex min-h-[calc(100vh-73px)] flex-col items-center justify-center px-4 py-12 sm:py-20 text-center overflow-hidden pb-24 sm:pb-32 w-full">
         {/* Content - centered with proper z-index */}
         <div className="relative z-10 mx-auto max-w-4xl space-y-6 sm:space-y-8 w-full mt-12 sm:mt-0">
           {/* Decorative glow blob */}

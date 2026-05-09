@@ -2,13 +2,20 @@ import path from "path"
 import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
+import mdx from "@mdx-js/rollup"
+import remarkFrontmatter from "remark-frontmatter"
+import remarkMdxFrontmatter from "remark-mdx-frontmatter"
 
 // https://vite.dev/config/
 export default defineConfig({
   // Base path set to "/" for custom domain (pr4veen.in)
   // Custom domains on GitHub Pages serve from root, not subdirectory
   base: "/",
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    { enforce: "pre", ...mdx({ remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter] }) },
+    react(), 
+    tailwindcss()
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -3,7 +3,7 @@ import path from 'path';
 
 const contentDir = '/Users/praveen/Programming/IQLine/pr4veen/src/content/projects';
 
-const files = fs.readdirSync(contentDir).filter(f => f.endsWith('.md'));
+const files = fs.readdirSync(contentDir).filter(f => f.endsWith('.mdx'));
 
 for (const file of files) {
   const filePath = path.join(contentDir, file);

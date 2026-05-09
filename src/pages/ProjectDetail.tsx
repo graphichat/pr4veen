@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MotionDiv } from "@/components/animations/MotionDiv";
 import { useEffect } from "react";
-import { MarkdownContent } from "@/components/markdown/MarkdownContent";
+import { mdxComponents } from "@/components/markdown/MarkdownContent";
 import { Compare } from "@/components/ui/compare";
 
 export function ProjectDetail() {
@@ -104,9 +104,11 @@ export function ProjectDetail() {
               </MotionDiv>
             )}
 
-            {/* Markdown Content */}
+            {/* MDX Content */}
             <MotionDiv animation="slideUp" trigger="inView" delay={0.2}>
-              <MarkdownContent content={project.content} />
+              <div className="prose prose-sm dark:prose-invert max-w-none">
+                <project.Component components={mdxComponents} />
+              </div>
             </MotionDiv>
 
             {/* Tech Stack Section */}

@@ -1,5 +1,3 @@
-import yaml from "js-yaml";
-
 export interface ProjectMetadata {
   title: string;
   id: string;
@@ -13,32 +11,8 @@ export interface ProjectMetadata {
 }
 
 export interface Project extends ProjectMetadata {
-  content: string; // Markdown content
-}
-
-/**
- * Parse a markdown file with YAML frontmatter
- * Browser-compatible version that doesn't rely on Node.js Buffer
- */
-export function parseMarkdownFile(fileContent: string): Project {
-  // Match YAML frontmatter (between --- markers)
-  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
-  const match = fileContent.match(frontmatterRegex);
-  
-  if (!match) {
-    throw new Error("Invalid markdown file: missing YAML frontmatter");
-  }
-  
-  const frontmatter = match[1];
-  const content = match[2];
-  
-  // Parse YAML frontmatter
-  const data = yaml.load(frontmatter) as ProjectMetadata;
-  
-  return {
-    ...data,
-    content: content.trim(),
-  };
+  content: string; // Markdown content (raw string for TOC)
+  Component: React.ElementType; // The MDX component
 }
 
 /**
@@ -48,7 +22,10 @@ export function parseMarkdownFile(fileContent: string): Project {
 export function loadProjects(): Project[] {
   // Use Vite's glob import to get all markdown files
   // The path must be relative to the project root
-  const modules = import.meta.glob("/src/content/projects/*.md", { 
+  const modules = import.meta.glob("/src/content/projects/*.mdx", { 
+    eager: true,
+  });
+  const rawModules = import.meta.glob("/src/content/projects/*.mdx", { 
     eager: true,
     query: "?raw",
     import: "default"
@@ -57,9 +34,23 @@ export function loadProjects(): Project[] {
   const projects: Project[] = [];
 
   for (const path in modules) {
-    const content = modules[path] as string;
-    const project = parseMarkdownFile(content);
-    projects.push(project);
+    const module = modules[path] as any;
+    const rawContent = rawModules[path] as string;
+    
+    // Check if module has frontmatter
+    if (!module.frontmatter) {
+      console.warn(`Warning: Missing frontmatter in ${path}`);
+      continue;
+    }
+    
+    const data = module.frontmatter as ProjectMetadata;
+    const Component = module.default;
+    
+    projects.push({
+      ...data,
+      content: rawContent,
+      Component,
+    });
   }
 
   // Sort by addedOn date (newest first), then by featured

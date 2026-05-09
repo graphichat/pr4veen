@@ -105,6 +105,7 @@ const FloatingDockMobile = ({
         {items.map((item, idx) => {
           const isActive = activeItem === item.id;
           const isScrollActive = scrollIndex === idx;
+          const isExpanded = isActive || isScrollActive;
           
           const content = (
             <motion.div
@@ -114,14 +115,14 @@ const FloatingDockMobile = ({
                 isActive
                   ? "bg-primary text-primary-foreground"
                   : "bg-gray-200 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-300 hover:bg-gray-300 dark:hover:bg-neutral-700",
-                isScrollActive ? "w-auto px-4 gap-2" : "w-10 shrink-0"
+                isExpanded ? "w-auto px-4 gap-2" : "w-10 shrink-0"
               )}
             >
               <motion.div layout className="h-5 w-5 flex items-center justify-center shrink-0">
                 {item.icon}
               </motion.div>
               <AnimatePresence>
-                {isScrollActive && (
+                {isExpanded && (
                   <motion.span 
                     initial={{ opacity: 0, width: 0 }}
                     animate={{ opacity: 1, width: "auto" }}
@@ -261,18 +262,35 @@ function IconContainer({
 
   const [hovered, setHovered] = useState(false);
 
-  const linkContent = (
+  const linkContent = isActive ? (
     <motion.div
+      key="active"
+      layoutId={`dock-item-${id}`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative flex items-center justify-center rounded-full transition-colors bg-primary text-primary-foreground h-10 w-auto px-4 gap-2"
+    >
+      <motion.div layoutId={`dock-icon-${id}`} className="flex items-center justify-center shrink-0 h-5 w-5">
+        {icon}
+      </motion.div>
+      <motion.span 
+        initial={{ opacity: 0, width: 0 }}
+        animate={{ opacity: 1, width: "auto" }}
+        exit={{ opacity: 0, width: 0 }}
+        className="text-sm font-medium whitespace-nowrap overflow-hidden"
+      >
+        {title}
+      </motion.span>
+    </motion.div>
+  ) : (
+    <motion.div
+      key="inactive"
+      layoutId={`dock-item-${id}`}
       ref={ref}
       style={{ width, height }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={cn(
-        "relative flex aspect-square items-center justify-center rounded-full transition-colors",
-        isActive
-          ? "bg-primary text-primary-foreground"
-          : "bg-gray-200 dark:bg-neutral-800"
-      )}
+      className="relative flex aspect-square items-center justify-center rounded-full transition-colors bg-gray-200 dark:bg-neutral-800"
     >
       <AnimatePresence>
         {hovered && (
@@ -287,8 +305,9 @@ function IconContainer({
         )}
       </AnimatePresence>
       <motion.div
+        layoutId={`dock-icon-${id}`}
         style={{ width: widthIcon, height: heightIcon }}
-        className="flex items-center justify-center"
+        className="flex items-center justify-center shrink-0"
       >
         {icon}
       </motion.div>
