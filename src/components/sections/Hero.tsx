@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowDown, ChevronDown } from "lucide-react";
+import { ArrowDown, ChevronDown, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MotionDiv } from "@/components/animations/MotionDiv";
 import { AuroraBackground } from "@/components/ui/aurora-background";
@@ -13,29 +13,18 @@ export function Hero({ onNavigate }: { onNavigate?: (sectionId: string) => void 
 
   useEffect(() => {
     if (arrowRef.current) {
-      animate(
-        arrowRef.current,
-        { y: [0, 10, 0] },
-        { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
-      );
+      animate(arrowRef.current, { y: [0, 10, 0] }, { duration: 1.5, repeat: Infinity, ease: "easeInOut" });
     }
     if (scrollIndicatorRef.current) {
-      animate(
-        scrollIndicatorRef.current,
-        { y: [0, 8, 0] },
-        { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
-      );
+      animate(scrollIndicatorRef.current, { y: [0, 8, 0] }, { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 });
     }
   }, []);
 
   return (
     <AuroraBackground>
       <section className="relative flex min-h-[calc(100vh-73px)] flex-col items-center justify-center px-4 py-12 sm:py-20 text-center overflow-hidden pb-24 sm:pb-32 w-full">
-        {/* Content - centered with proper z-index */}
         <div className="relative z-10 mx-auto max-w-4xl space-y-6 sm:space-y-8 w-full mt-12 sm:mt-0">
-          {/* Decorative glow blob */}
           <div className="absolute left-1/2 top-1/2 -z-10 h-[200px] sm:h-[300px] w-[300px] sm:w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/20 blur-[80px] sm:blur-[120px]" />
-          
           <MotionDiv animation="slideUp" delay={0} duration={0.8}>
             <div className="space-y-4 sm:space-y-6">
               <Badge variant="outline" className="mb-2 sm:mb-4 border-primary/30 bg-primary/10 text-primary px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm backdrop-blur-sm">
@@ -47,41 +36,42 @@ export function Hero({ onNavigate }: { onNavigate?: (sectionId: string) => void 
                   Praveen Kumar N
                 </span>
               </h1>
-              <p className="text-xl font-medium text-foreground/80 sm:text-2xl lg:text-3xl">
-                Product Design Lead
-              </p>
+              <p className="text-xl font-medium text-foreground/80 sm:text-2xl lg:text-3xl">Product Design Lead</p>
               <p className="mx-auto max-w-2xl text-base sm:text-lg text-muted-foreground/90 leading-relaxed px-2 sm:px-0">
-                With over a decade of experience, I lead teams to create user-centered, innovative solutions. 
-                I've driven redesigns that boosted user satisfaction by 25%, reduced note-taking time by 30%, 
+                With over a decade of experience, I lead teams to create user-centered, innovative solutions.
+                I've driven redesigns that boosted user satisfaction by 25%, reduced note-taking time by 30%,
                 and increased user adoption by 40%. Explore my work and see the UX design process in action.
               </p>
             </div>
           </MotionDiv>
           <MotionDiv animation="slideUp" delay={0.3} duration={0.8}>
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button size="lg" className="group" onClick={() => onNavigate?.("projects")}>
-              View Projects
-              <ArrowDown className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-1" />
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link to="/contact">Get In Touch</Link>
-            </Button>
-          </div>
-        </MotionDiv>
-      </div>
-
-      {/* Standalone scroll-down indicator */}
-      <button
-        ref={scrollIndicatorRef}
-        onClick={() => onNavigate?.("projects")}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground/50 hover:text-muted-foreground transition-colors cursor-pointer"
-        aria-label="View projects"
-        type="button"
-      >
-        <ChevronDown className="h-5 w-5" />
-      </button>
-    </section>
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
+              <Button size="lg" className="group" onClick={() => onNavigate?.("projects")}>
+                View Projects
+                <ArrowDown className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-1" />
+              </Button>
+              <Button size="lg" variant="outline" asChild>
+                <Link to="/contact">Get In Touch</Link>
+              </Button>
+              <Button size="lg" variant="ghost" asChild>
+                <a href="/resume/praveen-nalakurthi-resume.pdf" download>
+                  Download Resume
+                  <Download className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+            </div>
+          </MotionDiv>
+        </div>
+        <button
+          ref={scrollIndicatorRef}
+          onClick={() => onNavigate?.("projects")}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground/50 hover:text-muted-foreground transition-colors cursor-pointer"
+          aria-label="View projects"
+          type="button"
+        >
+          <ChevronDown className="h-5 w-5" />
+        </button>
+      </section>
     </AuroraBackground>
   );
 }
-

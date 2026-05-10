@@ -9,14 +9,12 @@ import { cn } from "@/lib/utils";
 
 interface ProjectFeatureCardProps {
   project: Project;
-  reverse?: boolean; // If true, image on left, content on right
+  reverse?: boolean;
 }
 
 export function ProjectFeatureCard({ project, reverse = false }: ProjectFeatureCardProps) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const topTechStack = project.techStack.slice(0, 3);
-
-  // Generate gradient colors based on project ID
   const gradientColors = [
     "from-blue-500/60 via-purple-500/60 to-pink-500/60",
     "from-green-500/60 via-emerald-500/60 to-teal-500/60",
@@ -25,25 +23,16 @@ export function ProjectFeatureCard({ project, reverse = false }: ProjectFeatureC
     "from-violet-500/60 via-purple-500/60 to-fuchsia-500/60",
     "from-amber-500/60 via-yellow-500/60 to-orange-500/60",
   ];
-  const gradientIndex = project.id.charCodeAt(0) % gradientColors.length;
-  const gradient = gradientColors[gradientIndex];
+  const gradient = gradientColors[project.id.charCodeAt(0) % gradientColors.length];
 
   return (
-    <div className="group grid gap-8 md:grid-cols-2 items-center">
-      {/* Image Section */}
+    <div className="group grid gap-8 md:grid-cols-2 items-center relative">
+      <Link to={`/project/${project.id}`} aria-label={`View ${project.title}`} className="absolute inset-0 z-0" />
+
       <div className={cn("order-1", reverse && "md:order-2")}>
-        <div className={cn(
-          "relative aspect-video w-full rounded-lg overflow-hidden bg-gradient-to-br",
-          gradient,
-          "transition-transform duration-300 group-hover:scale-[1.02]"
-        )}>
+        <div className={cn("relative aspect-video w-full rounded-lg overflow-hidden bg-gradient-to-br", gradient, "transition-transform duration-300 group-hover:scale-[1.02]")}>
           {project.featured && (
-            <Badge
-              variant="secondary"
-              className="absolute top-4 right-4 z-10 bg-background/90 backdrop-blur-sm shadow-sm"
-            >
-              Featured
-            </Badge>
+            <Badge variant="secondary" className="absolute top-4 right-4 z-10 bg-background/90 backdrop-blur-sm shadow-sm">Featured</Badge>
           )}
           {project.projectImage ? (
             <>
@@ -52,49 +41,33 @@ export function ProjectFeatureCard({ project, reverse = false }: ProjectFeatureC
                 src={project.projectImage}
                 alt={project.title}
                 onLoad={() => setImgLoaded(true)}
-                className={cn(
-                  "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105",
-                  !imgLoaded && "opacity-0"
-                )}
+                className={cn("h-full w-full object-cover transition-transform duration-500 group-hover:scale-105", !imgLoaded && "opacity-0")}
               />
             </>
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-6xl font-bold text-white/30 select-none">
-                {project.title.charAt(0)}
-              </div>
+              <div className="text-6xl font-bold text-white/30 select-none">{project.title.charAt(0)}</div>
             </div>
           )}
         </div>
       </div>
 
-      {/* Content Section */}
       <div className={cn("order-2 space-y-4", reverse && "md:order-1")}>
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <h3 className="text-2xl font-bold tracking-tight">{project.title}</h3>
-          </div>
-          <p className="text-muted-foreground leading-relaxed mb-4">
-            {project.description}
-          </p>
+          <h3 className="text-2xl font-bold tracking-tight mb-2">{project.title}</h3>
+          <p className="text-muted-foreground leading-relaxed mb-4">{project.description}</p>
         </div>
-
         {topTechStack.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {topTechStack.map((tech) => (
-              <Badge key={tech} variant="outline" className="text-sm font-normal">
-                {tech}
-              </Badge>
+              <Badge key={tech} variant="outline" className="text-sm font-normal">{tech}</Badge>
             ))}
             {project.techStack.length > 3 && (
-              <Badge variant="outline" className="text-sm text-muted-foreground font-normal">
-                +{project.techStack.length - 3}
-              </Badge>
+              <Badge variant="outline" className="text-sm text-muted-foreground font-normal">+{project.techStack.length - 3}</Badge>
             )}
           </div>
         )}
-
-        <div className="flex items-center gap-4 pt-2">
+        <div className="flex items-center gap-4 pt-2 relative z-10">
           <Button asChild variant="default" className="group/btn">
             <Link to={`/project/${project.id}`}>
               View Details
@@ -110,4 +83,3 @@ export function ProjectFeatureCard({ project, reverse = false }: ProjectFeatureC
     </div>
   );
 }
-
