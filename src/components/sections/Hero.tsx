@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MotionDiv } from "@/components/animations/MotionDiv";
 import { AuroraBackground } from "@/components/ui/aurora-background";
@@ -9,24 +9,22 @@ import { animate } from "motion";
 
 export function Hero({ onNavigate }: { onNavigate?: (sectionId: string) => void }) {
   const arrowRef = useRef<HTMLDivElement>(null);
+  const scrollIndicatorRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (arrowRef.current) {
-      // Continuous bounce animation
-      const bounceAnimation = () => {
-        animate(
-          arrowRef.current!,
-          {
-            y: [0, 10, 0],
-          },
-          {
-            duration: 1.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }
-        );
-      };
-      bounceAnimation();
+      animate(
+        arrowRef.current,
+        { y: [0, 10, 0] },
+        { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
+      );
+    }
+    if (scrollIndicatorRef.current) {
+      animate(
+        scrollIndicatorRef.current,
+        { y: [0, 8, 0] },
+        { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
+      );
     }
   }, []);
 
@@ -71,6 +69,17 @@ export function Hero({ onNavigate }: { onNavigate?: (sectionId: string) => void 
           </div>
         </MotionDiv>
       </div>
+
+      {/* Standalone scroll-down indicator */}
+      <button
+        ref={scrollIndicatorRef}
+        onClick={() => onNavigate?.("projects")}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted-foreground/50 hover:text-muted-foreground transition-colors cursor-pointer"
+        aria-label="View projects"
+        type="button"
+      >
+        <ChevronDown className="h-5 w-5" />
+      </button>
     </section>
     </AuroraBackground>
   );

@@ -325,8 +325,16 @@ function IconContainer({
   return (
     <button
       onClick={() => onItemClick?.(id)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onItemClick?.(id);
+        }
+      }}
       className="cursor-pointer"
       type="button"
+      tabIndex={0}
+      aria-label={title}
     >
       {linkContent}
     </button>

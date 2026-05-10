@@ -1,7 +1,6 @@
-"use client";
-
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "motion/react";
+import { Avatar, AvatarImage, AvatarFallback, getInitials } from "@/components/ui/avatar";
 
 import { useEffect, useState } from "react";
 
@@ -79,14 +78,17 @@ export const AnimatedTestimonials = ({
                   }}
                   className="absolute inset-0 origin-bottom"
                 >
-                  <img
-                    src={testimonial.src}
-                    alt={testimonial.name}
-                    width={500}
-                    height={500}
-                    draggable={false}
-                    className="h-full w-full rounded-3xl object-cover object-center"
-                  />
+                  <Avatar className="h-full w-full rounded-3xl">
+                    <AvatarImage
+                      src={testimonial.src}
+                      alt={testimonial.name}
+                      draggable={false}
+                      className="rounded-3xl object-cover object-center"
+                    />
+                    <AvatarFallback className="rounded-3xl text-4xl">
+                      {getInitials(testimonial.name)}
+                    </AvatarFallback>
+                  </Avatar>
                 </motion.div>
               ))}
             </AnimatePresence>

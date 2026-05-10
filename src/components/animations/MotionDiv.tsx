@@ -12,6 +12,10 @@ interface MotionDivProps {
   margin?: string;
 }
 
+const prefersReducedMotion =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export function MotionDiv({
   children,
   animation = "fadeIn",
@@ -27,6 +31,12 @@ export function MotionDiv({
     if (!ref.current) return;
 
     const element = ref.current;
+
+    // Respect user's motion preference — skip animation entirely
+    if (prefersReducedMotion) {
+      element.style.opacity = "1";
+      return;
+    }
 
     const animations = {
       fadeIn: {
@@ -55,38 +65,25 @@ export function MotionDiv({
     };
 
     if (trigger === "mount") {
-      animate(
-        element,
-        animations[animation],
-        {
-          duration,
-          delay,
-        }
-      );
+      animate(element, animations[animation], { duration, delay });
     } else {
       inView(
         element,
         () => {
-          animate(
-            element,
-            animations[animation],
-            {
-              duration,
-              delay,
-            }
-          );
+          animate(element, animations[animation], { duration, delay });
         },
-        {
-          margin: margin as any,
-        }
+        { margin: margin as any }
       );
     }
   }, [animation, delay, duration, trigger, margin]);
 
   return (
-    <div ref={ref} className={cn(className)}>
+    <div
+      ref={ref}
+      className={cn(className)}
+      style={prefersReducedMotion ? undefined : { opacity: 0 }}
+    >
       {children}
     </div>
   );
 }
-

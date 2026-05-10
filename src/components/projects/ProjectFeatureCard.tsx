@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ArrowRight, Clock } from "lucide-react";
 import { type Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
 
@@ -11,6 +13,7 @@ interface ProjectFeatureCardProps {
 }
 
 export function ProjectFeatureCard({ project, reverse = false }: ProjectFeatureCardProps) {
+  const [imgLoaded, setImgLoaded] = useState(false);
   const topTechStack = project.techStack.slice(0, 3);
 
   // Generate gradient colors based on project ID
@@ -43,11 +46,18 @@ export function ProjectFeatureCard({ project, reverse = false }: ProjectFeatureC
             </Badge>
           )}
           {project.projectImage ? (
-            <img 
-              src={project.projectImage} 
-              alt={project.title} 
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
+            <>
+              {!imgLoaded && <Skeleton className="absolute inset-0 rounded-none" />}
+              <img
+                src={project.projectImage}
+                alt={project.title}
+                onLoad={() => setImgLoaded(true)}
+                className={cn(
+                  "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105",
+                  !imgLoaded && "opacity-0"
+                )}
+              />
+            </>
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-6xl font-bold text-white/30 select-none">
@@ -84,13 +94,17 @@ export function ProjectFeatureCard({ project, reverse = false }: ProjectFeatureC
           </div>
         )}
 
-        <div className="flex gap-3 pt-2">
+        <div className="flex items-center gap-4 pt-2">
           <Button asChild variant="default" className="group/btn">
             <Link to={`/project/${project.id}`}>
               View Details
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
             </Link>
           </Button>
+          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <Clock className="h-3 w-3 shrink-0" />
+            {project.readingTime} min read
+          </span>
         </div>
       </div>
     </div>

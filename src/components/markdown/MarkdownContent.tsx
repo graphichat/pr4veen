@@ -1,6 +1,8 @@
 import { slugify } from "@/lib/markdown-headings";
+import { ProcessPhase } from "@/components/markdown/ProcessPhase";
 
 export const mdxComponents: any = {
+  ProcessPhase,
   h1: ({ node, children, ...props }: any) => {
     const text = String(children);
     const id = slugify(text);

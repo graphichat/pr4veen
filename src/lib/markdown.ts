@@ -13,6 +13,17 @@ export interface ProjectMetadata {
 export interface Project extends ProjectMetadata {
   content: string; // Markdown content (raw string for TOC)
   Component: React.ElementType; // The MDX component
+  readingTime: number; // Estimated reading time in minutes
+}
+
+function computeReadingTime(rawContent: unknown): number {
+  if (typeof rawContent !== "string" || !rawContent) return 1;
+  // Strip YAML frontmatter (between first two --- markers)
+  const withoutFrontmatter = rawContent.replace(/^---[\s\S]*?---\s*\n/, "");
+  // Strip MDX/JSX tags
+  const withoutTags = withoutFrontmatter.replace(/<[^>]+>/g, " ");
+  const wordCount = withoutTags.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(wordCount / 200));
 }
 
 /**
@@ -45,11 +56,13 @@ export function loadProjects(): Project[] {
     
     const data = module.frontmatter as ProjectMetadata;
     const Component = module.default;
-    
+    const safeContent = typeof rawContent === "string" ? rawContent : "";
+
     projects.push({
       ...data,
-      content: rawContent,
+      content: safeContent,
       Component,
+      readingTime: computeReadingTime(safeContent),
     });
   }
 

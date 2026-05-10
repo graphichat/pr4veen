@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ArrowRight, Clock } from "lucide-react";
 import { type Project } from "@/data/projects";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { animate } from "motion";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +15,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [imgLoaded, setImgLoaded] = useState(false);
 
   useEffect(() => {
     if (!cardRef.current) return;
@@ -85,11 +87,18 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </Badge>
         )}
         {project.projectImage ? (
-          <img 
-            src={project.projectImage} 
-            alt={project.title} 
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <>
+            {!imgLoaded && <Skeleton className="absolute inset-0 rounded-none" />}
+            <img
+              src={project.projectImage}
+              alt={project.title}
+              onLoad={() => setImgLoaded(true)}
+              className={cn(
+                "h-full w-full object-cover transition-transform duration-500 group-hover:scale-105",
+                !imgLoaded && "opacity-0"
+              )}
+            />
+          </>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-4xl font-bold text-white/30 select-none">
@@ -131,11 +140,15 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </CardContent>
 
       {/* Footer Section */}
-      <CardFooter className="pt-4 flex gap-2">
+      <CardFooter className="pt-4 flex flex-col gap-3">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground w-full">
+          <Clock className="h-3 w-3 shrink-0" />
+          <span>{project.readingTime} min read</span>
+        </div>
         <Button
           asChild
           variant="outline"
-          className="flex-1 group-hover:bg-primary group-hover:text-primary-foreground"
+          className="flex-1 w-full group-hover:bg-primary group-hover:text-primary-foreground"
         >
           <Link to={`/project/${project.id}`}>
             View Details

@@ -146,3 +146,59 @@
     background-position: 350% 50%, 350% 50%;
   }
 }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee var(--marquee-duration, 30s) linear infinite;
+  }
+}
+
+@media print {
+  /* Hide chrome */
+  header, footer, nav,
+  [class*="floating-dock"],
+  [class*="FloatingDock"],
+  aside,
+  [id*="sidebar"],
+  [class*="sidebar"],
+  .fixed {
+    display: none !important;
+  }
+
+  /* Full width content */
+  main, .flex-1 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Disable animations */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  /* Readable colours */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  a {
+    color: black !important;
+    text-decoration: underline;
+  }
+
+  /* Prevent page breaks inside cards */
+  [class*="card"], section {
+    break-inside: avoid;
+  }
+}

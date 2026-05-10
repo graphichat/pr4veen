@@ -1,4 +1,5 @@
-import { Linkedin, Mail, ExternalLink } from "lucide-react";
+import { Linkedin, Mail } from "lucide-react";
+import { IconBrandMedium, IconBrandInstagram, IconBrandFigma } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
 export function Footer() {
@@ -10,7 +11,7 @@ export function Footer() {
             <div>
               <h3 className="text-lg font-semibold">Praveen Kumar N</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                Senior Product Designer with over a decade of experience creating user-centered, 
+                Product Design Lead with over a decade of experience creating user-centered,
                 innovative solutions. Leading design teams to deliver impactful user experiences.
               </p>
             </div>
@@ -74,7 +75,7 @@ export function Footer() {
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   aria-label="Figma"
                 >
-                  <ExternalLink className="h-5 w-5" />
+                  <IconBrandFigma className="h-5 w-5" />
                 </a>
                 <a
                   href="https://medium.com/@pr4veen"
@@ -83,7 +84,7 @@ export function Footer() {
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   aria-label="Medium"
                 >
-                  <ExternalLink className="h-5 w-5" />
+                  <IconBrandMedium className="h-5 w-5" />
                 </a>
                 <a
                   href="https://instagram.com/pr4veen_n"
@@ -92,7 +93,7 @@ export function Footer() {
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   aria-label="Instagram"
                 >
-                  <ExternalLink className="h-5 w-5" />
+                  <IconBrandInstagram className="h-5 w-5" />
                 </a>
               </div>
               <div className="mt-4">

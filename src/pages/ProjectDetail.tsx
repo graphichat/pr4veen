@@ -5,6 +5,7 @@ import { SectionOverview } from "@/components/layout/SectionOverview";
 import { projects } from "@/data/projects";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Clock } from "lucide-react";
 import { MotionDiv } from "@/components/animations/MotionDiv";
 import { useEffect } from "react";
 import { mdxComponents } from "@/components/markdown/MarkdownContent";
@@ -78,9 +79,13 @@ export function ProjectDetail() {
             <MotionDiv animation="slideUp" trigger="mount" className="mb-8">
               <div className="flex items-start justify-between gap-4 mb-4">
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
                     <Badge variant="secondary">{project.category}</Badge>
                     {project.featured && <Badge>Featured</Badge>}
+                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Clock className="h-3 w-3" />
+                      {project.readingTime} min read
+                    </span>
                   </div>
                   <h1 className="text-4xl font-bold tracking-tight mb-3">{project.title}</h1>
                   <p className="text-xl text-muted-foreground leading-relaxed">

@@ -86,6 +86,17 @@ export function Header({ activeSection }: HeaderProps = {}) {
           </>
         )}
         <div className="flex flex-1 justify-end items-center gap-4">
+          {/* ⌘K hint — clicking triggers the keyboard shortcut visually */}
+          <kbd
+            className="hidden sm:inline-flex items-center gap-1 rounded border bg-muted px-2 py-1 text-[11px] text-muted-foreground cursor-pointer hover:bg-accent transition-colors select-none"
+            title="Open command palette (⌘K)"
+            onClick={() => {
+              const event = new KeyboardEvent("keydown", { key: "k", metaKey: true, bubbles: true });
+              document.dispatchEvent(event);
+            }}
+          >
+            <span>⌘</span><span>K</span>
+          </kbd>
           <ThemeToggle />
         </div>
       </nav>

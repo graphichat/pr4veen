@@ -3,8 +3,8 @@ import { ProjectCard } from "@/components/projects/ProjectCard";
 import { ProjectFeatureCard } from "@/components/projects/ProjectFeatureCard";
 import { MoreCard } from "@/components/projects/MoreCard";
 import { MotionDiv } from "@/components/animations/MotionDiv";
-import { useRef, useEffect, useState } from "react";
-import { animate, inView, stagger } from "motion";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { X, ArrowRight } from "lucide-react";
@@ -18,7 +18,6 @@ interface ProjectsProps {
 
 export function Projects({ limit, featuredLayout = false }: ProjectsProps = {}) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const projectsContainerRef = useRef<HTMLDivElement>(null);
 
   // Get unique categories
   const categories = Array.from(new Set(projects.map((p) => p.category)));
@@ -27,46 +26,20 @@ export function Projects({ limit, featuredLayout = false }: ProjectsProps = {}) 
   const filteredProjects = selectedCategory
     ? projects.filter((p) => p.category === selectedCategory)
     : projects;
-  
+
   // Sort: featured projects first, then others
   const sortedProjects = [...filteredProjects].sort((a, b) => {
     if (a.featured && !b.featured) return -1;
     if (!a.featured && b.featured) return 1;
     return 0;
   });
-  
+
   // Apply limit if provided (for home page)
-  const displayedProjects = limit 
+  const displayedProjects = limit
     ? sortedProjects.slice(0, limit)
     : sortedProjects;
-  
-  const showMoreCard = limit !== undefined && filteredProjects.length > limit;
 
-  useEffect(() => {
-    // Animate all projects with stagger
-    if (projectsContainerRef.current) {
-      const cards = projectsContainerRef.current.querySelectorAll("[data-project-card]");
-      inView(
-        projectsContainerRef.current,
-        () => {
-          animate(
-            cards as NodeListOf<HTMLElement>,
-            {
-              opacity: [0, 1],
-              y: [20, 0],
-            },
-            {
-              duration: 0.5,
-              delay: stagger(0.08),
-            }
-          );
-        },
-        {
-          margin: "-50px",
-        }
-      );
-    }
-  }, [selectedCategory, displayedProjects]);
+  const showMoreCard = limit !== undefined && filteredProjects.length > limit;
 
   // Featured layout for home page
   if (featuredLayout) {
@@ -84,14 +57,14 @@ export function Projects({ limit, featuredLayout = false }: ProjectsProps = {}) 
 
           {/* Featured Projects - Vertical Stack with Alternating Layout */}
           {displayedProjects.length > 0 && (
-            <div ref={projectsContainerRef} className="space-y-16">
+            <div className="space-y-16">
               {displayedProjects.map((project, index) => (
-                <div key={project.id} data-project-card>
-                  <ProjectFeatureCard 
-                    project={project} 
-                    reverse={index % 2 === 0} // Alternate: index 0 = content left (reverse), index 1 = image left, index 2 = content left (reverse)
+                <BlurFade key={project.id} delay={0.1 + index * 0.08} inView>
+                  <ProjectFeatureCard
+                    project={project}
+                    reverse={index % 2 === 0}
                   />
-                </div>
+                </BlurFade>
               ))}
             </div>
           )}
@@ -169,19 +142,16 @@ export function Projects({ limit, featuredLayout = false }: ProjectsProps = {}) 
               )}
             </div>
 
-            <div
-              ref={projectsContainerRef}
-              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            >
-              {displayedProjects.map((project) => (
-                <div key={project.id} data-project-card className="h-full">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {displayedProjects.map((project, index) => (
+                <BlurFade key={project.id} delay={0.05 + index * 0.06} inView className="h-full">
                   <ProjectCard project={project} />
-                </div>
+                </BlurFade>
               ))}
               {showMoreCard && (
-                <div data-project-card className="h-full">
+                <BlurFade delay={0.05 + displayedProjects.length * 0.06} inView className="h-full">
                   <MoreCard />
-                </div>
+                </BlurFade>
               )}
             </div>
           </div>
