@@ -1,8 +1,37 @@
 import { slugify } from "@/lib/markdown-headings";
 import { ProcessPhase } from "@/components/markdown/ProcessPhase";
+import { Compare } from "@/components/ui/compare";
+
+function CompareImgs({
+  before,
+  after,
+  beforeLabel = "Before",
+  afterLabel = "After",
+}: {
+  before: string;
+  after: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+}) {
+  return (
+    <div className="w-full my-8">
+      <Compare
+        firstImage={before}
+        secondImage={after}
+        className="w-full rounded-xl border border-border shadow-md aspect-video object-cover"
+        autoplay={false}
+      />
+      <div className="flex justify-between mt-2 px-1">
+        <span className="text-xs text-muted-foreground font-medium">{beforeLabel}</span>
+        <span className="text-xs text-muted-foreground font-medium">{afterLabel}</span>
+      </div>
+    </div>
+  );
+}
 
 export const mdxComponents: any = {
   ProcessPhase,
+  CompareImgs,
   h1: ({ node, children, ...props }: any) => {
     const text = String(children);
     const id = slugify(text);
@@ -79,15 +108,15 @@ export const mdxComponents: any = {
       {...props}
     />
   ),
-  FigmaEmbed: ({ url, width = "100%", height = 600 }: any) => (
-    <div className="w-full my-6 rounded-lg overflow-hidden border border-border shadow-md">
+  FigmaEmbed: ({ url, aspect = "video" }: any) => (
+    <div className={`w-full my-6 rounded-lg overflow-hidden border border-border shadow-md ${aspect === "video" ? "aspect-video" : "aspect-[4/3]"}`}>
       <iframe
         style={{ border: "none" }}
-        width={width}
-        height={height}
+        width="100%"
+        height="100%"
         src={`https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(url)}`}
         allowFullScreen
-      ></iframe>
+      />
     </div>
   ),
 };

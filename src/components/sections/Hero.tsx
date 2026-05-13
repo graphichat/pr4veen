@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowDown, ChevronDown, Download } from "lucide-react";
-import { Link } from "react-router-dom";
 import { MotionDiv } from "@/components/animations/MotionDiv";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { useRef, useEffect } from "react";
@@ -50,8 +49,8 @@ export function Hero({ onNavigate }: { onNavigate?: (sectionId: string) => void 
                 View Projects
                 <ArrowDown className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-1" />
               </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link to="/contact">Get In Touch</Link>
+              <Button size="lg" variant="outline" onClick={() => onNavigate?.("contact")}>
+                Get In Touch
               </Button>
               <Button size="lg" variant="ghost" asChild>
                 <a href="/resume/praveen-nalakurthi-resume.pdf" download>

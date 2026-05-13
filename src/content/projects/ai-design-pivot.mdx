@@ -1,0 +1,191 @@
+---
+title: "Design at AI Speed: Rebuilding How We Work"
+id: "ai-design-pivot"
+addedOn: "2025-01-01"
+projectImage: "/images/projects/ai-design-pivot.png"
+description: "Led the strategic pivot of IQLine's design team from Figma-first workflows to AI-driven, code-capable design — including building a shared Design Sandbox monorepo that cut design-to-dev handoff time and made design a development accelerator instead of a bottleneck."
+techStack:
+  - "Cursor"
+  - "Figma"
+  - "Figma Make"
+  - "React"
+  - "Design Systems"
+  - "AI Tooling"
+category: "Design Operations"
+featured: true
+---
+
+# Design at AI Speed: Rebuilding How We Work
+
+When AI-assisted development became the norm at IQLine, a structural problem emerged: engineering could ship faster than design could keep up. The bottleneck was no longer code. It was design.
+
+This is the story of how I identified that problem, diagnosed why it was happening, and rebuilt the design team's entire workflow from the ground up — moving from Figma-centric processes to a code-capable, AI-augmented design practice with a shared infrastructure that now accelerates both design and development.
+
+## The Problem: Design as the Bottleneck
+
+In 2024, development velocity at IQLine increased significantly as engineers adopted AI-assisted coding tools. Features that previously took weeks to prototype could be scaffolded in hours. The benefit was obvious — but it created a compounding problem downstream.
+
+The design team's output was tied to Figma. Every feature started with a Figma file: wireframes, high-fidelity mockups, component specs, annotations, prototype flows. This pipeline made sense when engineering and design moved at comparable speeds. When engineering accelerated by an order of magnitude, the pipeline broke.
+
+The symptoms were visible quickly:
+
+- Developers were writing code before designs were ready, producing divergence that required rework on both sides
+- Designers were producing Figma assets that became stale within days of handoff, as engineering iterated faster than design could track
+- Design reviews were becoming retrospective — feedback on work that was already largely implemented
+- The handoff artefact (the Figma file) was being used by engineers as a loose reference rather than a specification, because keeping it accurate was unsustainable at the pace we were moving
+
+The core issue was structural: Figma is a static asset creation tool. Static artefacts do not compose well with live, fast-moving codebases.
+
+## First Attempt: Figma Make
+
+The obvious first move was to use Figma Make — Figma's code-generation capability that promised to bridge the gap between design files and production-ready output.
+
+We piloted Figma Make across two modules. The results were instructive:
+
+**What worked:** Figma Make produced usable component scaffolding for simple, isolated UI elements. For greenfield screens with no prior component dependencies, it meaningfully reduced the distance between a Figma frame and working code.
+
+**What didn't:** Figma Make struggled to adapt to IQLine's existing design system. Our component library had been built with specific token structures, prop conventions, and composition patterns that Figma Make could not reliably consume. The output frequently reimplemented components that already existed — producing duplication rather than reuse.
+
+The deeper problem was that Figma Make still required designers to work in Figma first. The artefact problem was not solved — it was just compressed. We were still producing static files that became the source of truth, and the design system still lived in two places: Figma and the codebase.
+
+After six weeks of the Figma Make pilot, we reached a conclusion: the tool was not the constraint. The workflow was.
+
+## The Insight: Design System Fragmentation
+
+The real problem was that the design system existed in two separate, increasingly divergent forms — one in Figma (for designers) and one in code (for engineers). Every time one side updated, the other lagged. Every handoff was an exercise in translation between two representations of the same thing.
+
+No tool built on top of Figma was going to solve a problem that existed beneath Figma. The design system needed to exist in one place: the codebase. And if designers were going to work directly with the codebase, they needed the tools and environment to do so effectively.
+
+This was the point at which the direction shifted fundamentally.
+
+## The Pivot: Moving Design into Code
+
+The decision to move the design team to direct code-based design was not taken lightly. It required:
+
+- A technical infrastructure that made this feasible for designers who were not experienced engineers
+- A shared environment where designers and engineers worked from the same codebase and the same component library
+- An AI-augmented workflow that closed the skill gap — allowing designers to produce production-quality code with AI assistance, not by becoming full-stack developers
+
+The tool that made this practical was Cursor — an AI-native code editor that allowed designers to work in the codebase, generate component code using natural language, iterate on existing components, and validate output in a live preview environment.
+
+The shift was not about making designers write hand-crafted code. It was about making designers capable of producing executable design intent — code that was close enough to production-ready that engineering could take it, not translate it.
+
+## Building the Design Sandbox
+
+The infrastructure that made this possible was the **Design Sandbox** — a shared monorepo that I architected and built as the foundation for the new design workflow.
+
+### What the Design Sandbox Is
+
+The Design Sandbox is a monorepo that contains all of IQLine's product packages — each product represented as a package that shares a single, common design system at the root. It serves as the canonical source of truth for both design and development.
+
+**Structure:**
+
+```
+design-sandbox/
+├── packages/
+│   ├── design-system/     ← single source of truth for tokens, components, patterns
+│   ├── iqhealth/          ← HIMS platform
+│   ├── meducampus/        ← student management system
+│   ├── rider-app/         ← field runner mobile app
+│   └── [other products]/
+├── apps/
+│   └── sandbox/           ← live preview environment for design exploration
+└── tooling/
+    ├── tokens/            ← design token pipeline
+    └── storybook/         ← component documentation and visual testing
+```
+
+### Why a Monorepo
+
+A monorepo structure was deliberate. The design system package is imported by every product package — which means a design system update propagates across all products simultaneously, with no manual syncing, no copy-paste, and no divergence. This solved the core design system fragmentation problem directly.
+
+When a designer updates a component in the design system package, every product that uses that component gets the update. When an engineer extends a component for a specific product, the extension lives in the product package without polluting the shared system. The boundaries are enforced by the package structure.
+
+### The Live Sandbox Environment
+
+Within the monorepo, there is a dedicated sandbox app — a live preview environment where designers can explore and validate new concepts without touching production code. The sandbox imports from the same design system package used in production, so what you see in the sandbox is exactly what would ship.
+
+This replaced Figma prototypes for the purposes of stakeholder review and user validation. A concept explored in the sandbox is already in production-quality components — there is no translation step. When it is approved, the code moves to the product package.
+
+### Design Token Pipeline
+
+The design system's tokens — colour, typography, spacing, shadow, border — are defined once in a structured format and compiled to outputs consumed by every package. The token pipeline produces:
+
+- CSS custom properties for web products
+- A JSON token set for tooling integrations
+- A Storybook theme for component documentation
+
+Token changes are made once and cascade everywhere. A colour token update does not require a designer to open Figma, update a component, republish the library, and hope that developers pick up the change. It requires one edit and a build.
+
+## AI Agent Orchestration
+
+Alongside the Design Sandbox infrastructure, we explored using AI agents to handle portions of the design-to-development pipeline autonomously. We piloted Paperclip AI to orchestrate agents across specific design tasks:
+
+- Generating initial component implementations from a description and a reference screenshot
+- Running automated visual regression checks between sandbox output and design intent
+- Producing first-draft documentation for new components added to the design system
+
+The agent orchestration layer is early-stage and evolving, but the principle is clear: the right role for AI in this workflow is not to replace design judgment, but to handle the mechanical translation work that previously consumed designer time — from concept to code scaffold, from code to documentation, from change to test.
+
+## The New Workflow
+
+The redesigned design workflow operates in three stages:
+
+### Stage 1: Concept Development
+
+Designers develop new concepts directly in the sandbox environment, using Cursor with AI assistance to build within the existing design system. The output is a working prototype in production-quality components, not a Figma mock-up.
+
+For more exploratory work — early ideation, layout experimentation, rough concepts — Figma is still used. But it is no longer the handoff artefact. It is a thinking tool.
+
+### Stage 2: Validation
+
+The working sandbox prototype is shared with users and stakeholders for validation. Because the prototype is built on production components, user feedback is grounded in what the final product will actually feel and behave like — not what a Figma prototype approximates it will be.
+
+Stakeholder reviews are conducted on the live sandbox. Changes can be made in real time during a review session, rather than requiring a designer to go back to Figma, update a frame, share a new prototype link, and reconvene.
+
+### Stage 3: Handoff to Engineering
+
+Once a concept is validated, the code from the sandbox is handed off to engineering. Developers can inspect the sandbox implementation, understand the component and token usage, and import or adapt the relevant code directly into the product package.
+
+The handoff is code, not a specification. Engineers are not reverse-engineering a Figma file — they are reading implementation-ready code written in the same stack and design system they already use. This meaningfully reduces the time between design approval and production implementation.
+
+## Impact
+
+The shift to this workflow changed the relationship between design and engineering at IQLine in measurable ways:
+
+**Design-to-implementation time decreased.** Because sandbox code maps directly to production components, the engineering work required to go from approved design to shipped feature is significantly smaller. There is no interpretation step.
+
+**Design system drift eliminated.** With a single design system package as the source of truth, the divergence between what designers reference and what engineers implement has been resolved at the infrastructure level.
+
+**Designers ship faster.** With AI assistance in Cursor, designers produce working UI in a fraction of the time previously required for high-fidelity Figma mockups. The time saved on production of static artefacts is reinvested in user research, validation, and design thinking.
+
+**Developer experience improved.** Engineers report that receiving working sandbox code as a handoff artefact is substantially more useful than a Figma file. The code they receive is already in their stack, already using their component library, and already semantically correct.
+
+**Stakeholder confidence increased.** Reviewing production-quality working prototypes rather than Figma simulations means stakeholder sign-off is more meaningful — there are fewer surprises when the feature ships.
+
+## What This Signals for Design Leadership
+
+This project is not primarily about tools. It is about the evolving definition of design in a world where software can be built at AI speed.
+
+The traditional role of a designer as a producer of visual specifications — someone who creates artefacts that engineers then interpret and implement — is becoming structurally untenable as development velocity increases. Specifications that take two weeks to produce and two days to implement are no longer viable when implementation takes two hours.
+
+The design leader's job in this environment is to rethink what design's contribution to the product actually is — and to build the infrastructure and team capability that makes that contribution sustainable at the speed development now demands.
+
+In this case, that meant:
+
+- **Diagnosing the real problem** (design system fragmentation) rather than patching the symptom (Figma Make)
+- **Building shared infrastructure** (the Design Sandbox) that solved the problem at the root
+- **Upskilling the team** to work in a new medium without losing design judgment or craft
+- **Repositioning design** from a sequential step in the pipeline to a concurrent, code-capable contributor
+
+The result is a design team that accelerates engineering rather than constraining it — one that produces validated, implementation-ready design intent instead of static documentation of intent.
+
+## Reflections
+
+The most difficult part of this pivot was not technical. The monorepo and the token pipeline were engineering problems with well-understood solutions.
+
+The hard part was convincing a design team that their craft — the thing they had spent years developing — was not being replaced, but was being extended into a new medium. Designers who were excellent at visual communication in Figma needed to become comfortable producing that same visual communication in code, with AI as a collaborator.
+
+That required a different kind of leadership than most design pivots. It required being honest about why the change was necessary, demonstrating the new workflow personally rather than just directing others to adopt it, and holding the team through the discomfort of a steep learning curve.
+
+The outcome is a team that is more capable, more valued, and more central to how IQLine builds products than the design team that existed before. That is what made it worth doing.

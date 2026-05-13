@@ -1,10 +1,10 @@
 ---
 title: "Sample Transport Tracking Module"
 id: "sample-transport-system"
-addedOn: "2024-04-05"
+addedOn: "2024-10-01"
 projectImage: "/images/projects/sample-transport-system.png"
 projectOldImage: "/images/projects/old-sample-transport.png"
-description: "Designed a comprehensive Sample Transport Tracking Module at IQLine to track and transfer medical samples between facilities with real-time monitoring and status updates."
+description: "Designed the Sample Transport Management System (STMS) within IQHealth — IQLine's modular HIMS platform — enabling end-to-end inter-facility medical sample tracking for diagnostic labs, hospitals, and collection centers."
 techStack:
   - "Figma"
   - "UX Strategy"
@@ -15,228 +15,120 @@ category: "Healthcare SaaS"
 featured: false
 ---
 
-# Sample Transport Tracking Module
+# Sample Transport Management System
 
-Led the design and development of a comprehensive Sample Transport Tracking Module at IQLine that enables healthcare facilities to track medical samples in real-time as they are transferred between locations. The system provides end-to-end visibility, status updates, and ensures sample integrity throughout the transport process. Focused on creating an intuitive interface that reduces errors and improves operational efficiency for healthcare staff managing sample logistics.
+Designed and launched the Sample Transport Management System (STMS) as part of IQHealth — IQLine's modular Hospital Information Management System. The STMS module enables end-to-end tracking of medical samples as they move between collection centers, hospitals, and diagnostic labs, giving operations teams real-time visibility into every handoff in the chain.
+
+This was one of the first modules I took from zero to launch after joining IQLine as Product Design Lead in September 2024. The goal was to design a system that could slot cleanly into the broader IQHealth architecture while solving a very specific, high-stakes operational problem: samples getting lost, delayed, or mis-routed between facilities.
 
 ## Project Overview
 
-Medical sample transport is a critical but often overlooked aspect of healthcare operations. Samples must be tracked accurately, maintained at proper temperatures, and delivered within specific timeframes to ensure accurate test results. The existing manual tracking systems were error-prone and lacked real-time visibility.
+IQHealth is a modular HIMS built for Indian healthcare facility operations — covering diagnostics, billing, patient management, and inter-facility workflows. The Sample Transport module sits at the intersection of diagnostics and operations: it tracks the physical movement of samples collected at one location and processed at another.
 
-### The Challenge
+### The Problem Space
 
-Healthcare facilities faced significant challenges:
-- Manual tracking led to lost or misplaced samples
-- No real-time visibility into sample location
-- Temperature monitoring was inconsistent
-- Chain of custody documentation was incomplete
-- Staff spent excessive time on tracking tasks
+In multi-facility diagnostic networks, sample transport is operationally critical but typically untracked beyond paper logs or WhatsApp messages. The existing workflow at client facilities relied on:
+- Manual registers at collection centers for dispatch recording
+- No visibility between dispatch and receipt
+- No structured handoff or chain of custody process
+- Delayed turnaround time (TAT) due to untracked transit
+- No way to escalate lost or delayed samples before results were due
 
-### The Solution
+Operations managers had no dashboard. Lab staff had no ETA. Field runners had no structured check-in flow.
 
-A comprehensive digital tracking system featuring:
-- Real-time GPS tracking of samples
-- Automated status updates
-- Temperature monitoring integration
-- Digital chain of custody
-- Mobile app for field staff
-- Dashboard for facility managers
+### The Design Objective
+
+Build a transport tracking module that:
+- Fits the modular IQHealth architecture without duplicating data from existing LIS/billing modules
+- Works for three distinct roles: lab operations, field transport staff, and facility coordinators
+- Handles the full lifecycle: collection → dispatch → in-transit → received → exception
+- Supports both mobile (for field staff) and desktop (for ops dashboards)
+- Keeps the interaction model simple enough for non-technical field staff
 
 ## UX Highlights
 
-- **Real-time sample tracking and monitoring** - GPS-enabled tracking with live updates
-- **Facility-to-facility transfer workflow optimization** - Streamlined transfer processes
-- **Status updates and notifications system** - Automated alerts for all stakeholders
-- **Streamlined tracking interface for healthcare staff** - Reduced tracking time by 50%
-- **Sample integrity and chain of custody management** - Complete digital documentation
-- **Mobile-first design for field operations** - Optimized for transport staff
+- **Role-aware interface** — separate views and flows for lab ops, transport runners, and facility coordinators
+- **End-to-end status visibility** — real-time sample status from dispatch through receipt
+- **Structured handoff model** — digital chain of custody replacing WhatsApp-based coordination
+- **Exception handling workflows** — escalation paths for delayed, missing, or rejected samples
+- **Mobile-first for field operations** — optimised for quick scan-and-confirm flows on the go
+- **Integrated into IQHealth design system** — consistent with the broader HIMS component library
 
-## Key Features
+## Key Flows Designed
 
-### Real-Time Tracking Dashboard
+### Sample Dispatch (Lab / Collection Center)
 
-Comprehensive dashboard providing:
-- Live map view of all active transports
-- Sample status at a glance
-- Temperature monitoring alerts
-- Estimated delivery times
-- Historical tracking data
+The dispatch flow allows collection center staff to batch samples for transport, assign them to a runner, and generate a digital manifest. Key decisions:
+- Batch-first model to match how labs actually work (multiple samples per trip)
+- Manifest generated as a scannable reference, not just a list
+- Confirmation screen surfaces sample count and destination before committing
 
-### Mobile App for Transport Staff
+### In-Transit Tracking (Field Runner — Mobile)
 
-Dedicated mobile application featuring:
-- Barcode scanning for quick check-in/out
-- Photo capture for condition documentation
-- GPS tracking activation
-- Offline capability for areas with poor connectivity
-- Simple, task-focused interface
+Designed for speed and low friction. A runner receives a trip assignment, can scan or tap to confirm pickup, and updates status at each checkpoint:
+- Minimal text input — status updates are tap-based
+- Offline-tolerant: queues updates when connectivity is poor
+- Photo capture for sample condition on pickup and delivery
 
-### Automated Notifications
+### Receipt & Verification (Receiving Lab)
 
-Smart notification system:
-- Status change alerts
-- Temperature deviation warnings
-- Delivery confirmations
-- Exception notifications
-- Customizable alert preferences
+Receiving staff scan or confirm each sample against the manifest, flag discrepancies, and close the transport chain:
+- Mismatch detection flags samples that arrive without dispatch records
+- Temperature or condition notes captured at receipt
+- Auto-triggers notification to dispatching facility on completion
 
-### Chain of Custody Management
+### Operations Dashboard
 
-Digital documentation system:
-- Automated custody transfer records
-- Digital signatures
-- Timestamp tracking
-- Photo evidence capture
-- Complete audit trail
+The dashboard gives lab managers and coordinators a live view of all active transports, overdue samples, and historical TAT data:
+- Status breakdown: pending dispatch / in transit / received / exceptions
+- TAT trends per route and per runner
+- One-click drill-down into individual transport records
 
 ## Design Process
 
-### Discovery & Research
+### Discovery
 
-Conducted user research with healthcare facility staff to understand sample transport workflows, pain points, and requirements for tracking systems. We observed operations at 8 different facilities and interviewed 25 staff members involved in sample transport.
+Started with stakeholder interviews at IQLine — product, operations, and the sales team who had direct client feedback. Mapped the current-state workflow at two client facilities to understand where the real breakdowns were happening.
 
-**Research Findings:**
-- Average of 2-3 samples lost per week per facility
-- Manual tracking took 15-20 minutes per sample
-- Temperature monitoring was inconsistent
-- Staff lacked visibility into sample status
-- Multiple systems created data silos
+**Key findings:**
+- The biggest pain point was not tracking during transit — it was the handoff gaps at dispatch and receipt
+- Operations managers spent time chasing runners on WhatsApp for status updates
+- Lab staff wanted TAT visibility, not just proof of dispatch
+- Field runners needed something faster than a form — any friction meant they'd skip it
 
-**Deliverables:**
-- User interviews (25 interviews)
-- Workflow analysis (8 facility workflows)
-- Pain point identification (32 issues documented)
-- Requirements documentation
-- Stakeholder maps
+### Information Architecture & Role Mapping
 
-### UX Strategy & Information Architecture
+Defined three primary roles and their distinct needs before touching any screens. Designed role-specific entry points rather than a single unified flow that would compromise each role's workflow.
 
-Defined UX strategy for sample tracking workflows, created information architecture, and mapped out user journeys for different user roles. We identified 5 distinct user personas with different needs and workflows.
-
-**User Personas:**
-- Lab Technician (sends samples)
-- Transport Staff (transports samples)
-- Receiving Facility Staff (receives samples)
-- Facility Manager (oversees operations)
-- Quality Assurance (monitors compliance)
-
-**Information Architecture:**
-- Hierarchical organization of information
-- Role-based access and views
-- Contextual information display
-- Progressive disclosure patterns
-
-**Deliverables:**
-- UX strategy document
-- Information architecture (complete site map)
-- User journey maps (5 personas, 12 journeys)
-- User personas (5 detailed personas)
-- Content strategy
+Mapped out the data model to align with IQHealth's existing patient and sample entities — the transport module needed to reference samples already created in the LIS module, not duplicate them.
 
 ### Wireframing & Prototyping
 
-Created wireframes and interactive prototypes for the tracking module, focusing on real-time updates, status visibility, and ease of use. We prioritized mobile experience since transport staff would primarily use mobile devices.
+Built low-fidelity flows for all three roles simultaneously to catch handoff dependencies early. Moved to high-fidelity prototypes for the dispatch and receipt flows first, since those had the most interaction complexity.
 
-**Prototyping Approach:**
-- Low-fidelity wireframes for all screens
-- High-fidelity prototypes for key flows
-- Mobile-first design approach
-- Offline functionality considerations
-- Performance optimization
+Ran walkthrough sessions with the IQLine product team and two client-side ops managers using Figma prototypes before any dev work started.
 
-**Key Flows Prototyped:**
-- Sample check-out process
-- In-transit tracking
-- Sample check-in process
-- Status monitoring
-- Exception handling
+### Design System Integration
 
-**Deliverables:**
-- Low-fidelity wireframes (60+ screens)
-- Interactive prototypes (12 key flows)
-- User flow diagrams
-- Interaction specifications
-- Mobile prototypes
+All components were built within the IQHealth design system I was simultaneously developing at IQLine — tokens, form patterns, status indicators, and navigation structures shared with the broader HIMS modules. This kept the transport module visually and functionally consistent with the rest of the platform.
 
-### Design & Testing
+## Impact
 
-Developed high-fidelity designs with a comprehensive design system, conducted usability testing, and iterated based on feedback. We tested with actual healthcare staff to ensure the design met real-world needs.
+The STMS module launched as part of the IQHealth platform rollout at IQLine's client facilities. It replaced the manual paper + WhatsApp tracking workflow with a structured digital chain of custody.
 
-**Testing Results:**
-- Task completion rate: 92%
-- Average task time reduced by 50%
-- Error rate decreased by 70%
-- User satisfaction: 8.5/10
-- Mobile usability score: 9/10
+From internal feedback after launch:
+- Operations managers reported significantly reduced time spent on status follow-ups
+- Lab coordinators gained visibility into expected TAT for the first time
+- The exception flagging flow surfaced sample delays earlier, giving labs time to re-collect when needed
 
-**Deliverables:**
-- Design system (250+ components)
-- High-fidelity mockups (80+ screens)
-- Usability test reports (3 rounds)
-- Design iterations (15 major updates)
-- Implementation specifications
+## Reflections
 
-## Impact & Results
+This project reinforced the value of designing for handoffs, not just individual screens. The critical UX work wasn't in the dashboard or the mobile app in isolation — it was in how the dispatch confirmation from one party reliably became the pickup record for the next. Getting that data contract right in the design made the dev implementation cleaner too.
 
-### Quantitative Metrics
+Working within a modular HIMS also meant resisting the urge to solve adjacent problems in the same module. The transport system tracks samples in transit — it doesn't try to be an LIS or a billing tool. That constraint kept the interface focused.
 
-- **50% reduction in tracking time** - From 15-20 minutes to 7-10 minutes per sample
-- **80% reduction in lost samples** - From 2-3 per week to 0.4 per week average
-- **95% improvement in chain of custody documentation** - Complete digital records
-- **60% reduction in temperature-related issues** - Better monitoring and alerts
-- **40% increase in staff satisfaction** - Measured through surveys
+## Figma Deck
 
-### Operational Improvements
+<FigmaEmbed url="https://www.figma.com/deck/UI150sxdtJ4yGMqQTszJav/Sample-Transport-Tracking-Module" />
 
-Facilities reported:
-- Better visibility into sample status
-- Reduced time spent on tracking tasks
-- Improved compliance with regulations
-- Faster exception resolution
-- Better coordination between facilities
-
-## Technical Considerations
-
-### Performance Requirements
-
-- Real-time updates with less than 2 second latency
-- Offline functionality for poor connectivity areas
-- Battery optimization for mobile devices
-- Scalability for multiple facilities
-- Integration with existing lab systems
-
-### Security & Compliance
-
-- HIPAA compliance requirements
-- Data encryption in transit and at rest
-- Role-based access control
-- Audit logging for all actions
-- Secure authentication methods
-
-## Lessons Learned
-
-### What Worked Well
-
-- Extensive field research revealed critical insights
-- Mobile-first approach matched actual usage patterns
-- Real-time updates significantly improved user trust
-- Offline capability was essential for field operations
-
-### Challenges Overcome
-
-- Balancing real-time updates with battery life
-- Ensuring accuracy in GPS tracking
-- Integrating with multiple existing systems
-- Managing user expectations across different roles
-
-### Future Enhancements
-
-- AI-powered route optimization
-- Predictive analytics for delivery times
-- Integration with more lab systems
-- Enhanced reporting and analytics
-- Automated quality checks
-
-## External Links
-
-- [View Figma Deck](https://www.figma.com/deck/UI150sxdtJ4yGMqQTszJav/Sample-Transport-Tracking-Module)
+[Open in Figma](https://www.figma.com/deck/UI150sxdtJ4yGMqQTszJav/Sample-Transport-Tracking-Module)

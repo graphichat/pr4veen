@@ -1,0 +1,150 @@
+---
+title: "IQHealth — End-to-End HIMS Platform"
+id: "iqhealth"
+addedOn: "2024-09-01"
+projectImage: "/images/projects/emr-visit-pad.png"
+projectOldImage: "/images/projects/old-emr-pad.png"
+description: "Leading the UX architecture and product modernisation of IQHealth — IQLine's end-to-end Hospital Information Management System covering OPD, IPD, diagnostics, billing, pharmacy, and inter-facility operations."
+techStack:
+  - "Figma"
+  - "UX Strategy"
+  - "Design Systems"
+  - "Prototyping"
+  - "User Research"
+category: "Healthcare SaaS"
+featured: true
+---
+
+# IQHealth — End-to-End HIMS Platform
+
+Leading the UX architecture and product modernisation of IQHealth — IQLine's end-to-end Hospital Information Management System. IQHealth covers the full spectrum of healthcare facility operations: patient registration and OPD workflows, IPD and ward management, diagnostics and lab operations, pharmacy, billing, inter-facility sample transport, and reporting.
+
+This is an ongoing, long-horizon project. I joined IQLine as Product Design Lead in September 2024 with a mandate to modernise the platform's UX, rebuild the design system from scratch, and drive a structural redesign focused on modularity and multi-product interoperability. The work spans product strategy, information architecture, hands-on UX design across modules, design system development, and design process establishment for the team.
+
+## Product Overview
+
+IQHealth serves hospitals, diagnostic centres, polyclinics, and multi-facility healthcare networks across India. The platform handles workflows that span clinical, administrative, and operational functions — often within a single facility session.
+
+### Platform Scope
+
+**Patient & Clinical**
+- Patient registration, UHID management, and EMR
+- OPD workflows: consultation, prescription, and follow-up scheduling
+- IPD: admission, ward allocation, bed management, discharge, and summary
+- Clinical notes and encounter documentation
+
+**Diagnostics & Lab**
+- Test order management and sample collection
+- LIS (Laboratory Information System) — result entry, validation, and report generation
+- Radiology and imaging order tracking
+- Sample Transport Management (inter-facility — covered separately)
+
+**Pharmacy**
+- Formulary and inventory management
+- Inpatient medication dispensing
+- Outpatient pharmacy billing and dispensing
+- Drug interaction alerts and substitution management
+
+**Billing & Finance**
+- OPD and IPD billing with package and insurance support
+- TPA and cashless claim processing
+- Patient ledger and payment tracking
+- Financial reporting and MIS exports
+
+**Administration & Operations**
+- Staff and roster management
+- Appointment scheduling and queue management
+- Facility and asset management
+- Regulatory reporting (NABH, NMC compliance exports)
+
+**Inter-Facility Operations**
+- Sample transport tracking (STMS module)
+- Referral management
+- Shared patient records across facility network
+
+## The Design Challenge
+
+IQHealth existed before I joined — it had grown feature-by-feature over time, with inconsistencies accumulating across modules. The core challenges I inherited were:
+
+**Architectural fragmentation** — Each module had evolved independently, resulting in inconsistent navigation patterns, duplicate UI components across modules, and workflows that required users to context-switch between disconnected interfaces.
+
+**No design system** — Components were recreated per module by different developers and, where design existed, it was undocumented. There was no shared token set, no component library, and no design-to-dev handoff standard.
+
+**Workflow complexity without clarity** — HIMS workflows are inherently complex. The existing UI had absorbed that complexity without filtering it — screens were dense, action hierarchies were unclear, and users relied on training and habit rather than interface guidance.
+
+**Scalability constraints** — The platform needed to support multi-facility deployments, role-based views, and new module integrations without each addition requiring a full re-think of the existing interface.
+
+## Design Strategy
+
+My approach to modernising IQHealth was sequenced in three layers:
+
+### 1. Design System First
+
+Before redesigning any screens, I built the IQHealth design system from scratch — establishing the foundation that all module redesigns would inherit. This included:
+
+- **Token architecture**: colour, typography, spacing, border, and shadow tokens with semantic naming for light/dark mode support
+- **Component library**: 300+ components covering forms, tables, status indicators, navigation patterns, modals, empty states, and data-dense layouts specific to HIMS use cases
+- **Patterns and templates**: standardised page layouts, workflow step patterns, and data table configurations that module designs draw from
+- **Documentation and handoff standards**: component specs, usage guidelines, and Figma-to-dev handoff conventions aligned with the engineering team's workflow
+
+Building this first meant that each subsequent module redesign contributed to the system rather than diverging from it.
+
+### 2. Structural Redesign — Navigation and IA
+
+Redesigned the global navigation architecture to support:
+- Role-aware navigation: clinical staff, billing staff, admin, and lab technicians each have different primary workflows — the navigation reflects this without requiring a separate product per role
+- Module coherence: related workflows are grouped and accessible within consistent structural patterns
+- Context preservation: users moving between patient context and module functions don't lose where they are in a workflow
+
+### 3. Module-by-Module Workflow Redesign
+
+Systematic redesign of individual modules, prioritised by user impact and development readiness. Each module redesign follows the same process: workflow audit → IA restructure → wireframes → prototype → design review → handoff.
+
+## Key Design Work
+
+### OPD Consultation Workflow
+
+The OPD consultation flow is the highest-frequency workflow in the system — used by doctors for every patient visit. The redesign focused on:
+- Reducing the cognitive load of the consultation interface by surfacing only what's relevant to the current encounter stage
+- Separating the clinical note-taking surface from order management (investigations, prescriptions) while keeping them contextually linked
+- Making patient history and prior visit context accessible without navigating away from the active consultation
+
+### IPD Admission and Ward Management
+
+IPD workflows involve multiple staff roles in sequence — from admission through nursing, pharmacy, and discharge. Key design work:
+- Bed availability and allocation interface redesigned for at-a-glance decision-making by admissions staff
+- Nursing station view: patient list with live status indicators for pending orders, vitals, and medication schedules
+- Discharge checklist and summary generation to reduce documentation time at checkout
+
+### Billing and Insurance
+
+Billing in a HIMS context is complex — packages, item-level billing, insurance TPA coordination, and advance payment management all live in the same workflow. The redesign:
+- Introduced a staged billing flow separating order accumulation from finalisation and payment
+- TPA/cashless workflow made explicit with clear status tracking for claim submission and approval
+- Patient ledger view redesigned for faster cash counter use
+
+### Lab Operations (LIS)
+
+The LIS module handles test requests, sample processing, result entry, and report delivery. Redesigned with:
+- Worklist views optimised for lab technicians — batch-friendly, filterable by test type and urgency
+- Result entry forms adapted to test type (numeric ranges, text findings, image attachment)
+- Report preview and authorisation flow for pathologists before report release
+- Turnaround time visibility for operations management
+
+## Design Process at IQLine
+
+One of the less visible but significant parts of this project was establishing a design process where there wasn't a formal one before.
+
+This included:
+- **Design review cadence**: weekly design review sessions with product and engineering to align before development starts
+- **Feedback and iteration loops**: structured usability walkthroughs with internal subject-matter experts (clinical staff, billing specialists) at key design milestones
+- **AI-assisted tooling**: introduced AI tools into the design workflow for faster documentation generation, copy drafting, and design exploration — reducing turnaround on lower-stakes deliverables
+- **Design-to-dev handoff standards**: Figma component documentation and annotation conventions that reduced back-and-forth during implementation
+
+## Reflections
+
+Designing an end-to-end HIMS is a different class of problem than designing a single product or feature. The challenge is never just the individual screen — it's ensuring that the design decisions made in one module don't create friction or inconsistency in another, and that the system as a whole is coherent enough for users who move across multiple modules in a single day.
+
+The design system investment paid off quickly. Having shared foundations meant that new module work could move faster, design reviews spent less time on component-level decisions, and the platform started to feel like one product rather than a collection of tools.
+
+The ongoing work is centred on completing the module redesign backlog, expanding the design system to cover edge cases surfaced during implementation, and beginning work on IQHealth's next architectural evolution — supporting multi-facility data federation and advanced analytics reporting.

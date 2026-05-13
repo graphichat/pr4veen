@@ -1,0 +1,128 @@
+---
+title: "SPOT — Doctor's Personal EMR App"
+id: "spot-doctor-app"
+addedOn: "2022-03-01"
+projectImage: "/images/projects/doctor-app-cover.png"
+projectOldImage: "/images/projects/doctor-app-healthplix.png"
+description: "Designed SPOT — HealthPlix's mobile-first personal EMR app for doctors — increasing new user adoption by 40% by enabling quick prescriptions, staff delegation, and patient management from a phone."
+techStack:
+  - "Figma"
+  - "User Research"
+  - "Mobile UX"
+  - "Design Systems"
+  - "Prototyping"
+category: "Healthcare SaaS"
+featured: true
+---
+
+# SPOT — Doctor's Personal EMR App
+
+Designed SPOT, HealthPlix's mobile-first personal EMR app built exclusively for doctors. SPOT gave doctors the ability to write prescriptions, manage appointments, send patient communications, and delegate tasks to clinic staff — all from their phone, without needing access to the full web-based EMR.
+
+This project started from a data-driven realisation: a large portion of HealthPlix's doctor base was not using the web product at all. Understanding why, and designing a mobile solution that actually fit how doctors work, was the entire challenge.
+
+## About HealthPlix
+
+HealthPlix is a doctor-first technology company whose core product is an EMR — a prescription-writing and clinical documentation tool used by doctors across India. Alongside the EMR, HealthPlix offers clinic management, online booking, and patient consultation tools.
+
+![HealthPlix product overview](/images/projects/doctor-app-healthplix.png)
+
+## Why SPOT Was Needed
+
+In researching doctor adoption, we found that 7 out of 10 doctors were bypassing the web-based EMR in favour of more accessible alternatives — often a combination of phone calls, WhatsApp messages, and paper records. This was not a minor adoption gap. It meant the product was failing a significant portion of its intended users.
+
+We also discovered that many doctors were already trying to open the web version of the EMR on their phones. The web product was not designed for mobile — it was dense, complex, and difficult to navigate on a small screen. Doctors were attempting to use it anyway because they needed access while away from their desk.
+
+This prompted us to rethink mobile EMR entirely. Not just a responsive version of the web product, but a purpose-built mobile experience designed around how doctors actually behave away from the clinic.
+
+## My Role
+
+As Lead Designer — and the only designer at HealthPlix at this stage — my role covered the entire design lifecycle of SPOT: from research and user interviews, through information architecture and prototyping, to final designs and developer handoff.
+
+I hired a design research intern (Hisham) to work alongside me on this project, primarily to support the user research phase.
+
+**My responsibilities:**
+
+- Working with Hisham to plan and implement research methods for understanding doctor behaviour and mobile usage patterns
+- Analysing research data and generating actionable insights
+- Creating user journeys and personas for the key user types (doctors and clinic staff)
+- Defining the information architecture for the full app
+- Creating wireframes, prototypes, and high-fidelity designs
+- Defining a mobile design system for SPOT
+- Final designs for developer handoff
+
+Hisham led the research execution and competitive analysis. I led synthesis, design decisions, and all design output.
+
+## Research & User Interviews
+
+The first step was identifying who to research. Using MixPanel, we identified 273 doctors who had attempted to open HealthPlix EMR on a mobile device at least once. These were the most qualified candidates for understanding mobile intent — doctors who had already demonstrated a need for mobile access.
+
+We called doctors from this pool for interviews. The calls revealed a consistent set of needs:
+
+- Doctors wanted to write quick prescriptions for patients when they were away from their desk
+- Doctors wanted to send marketing material and bulk SMS to patients when away from the clinic
+- Doctors wanted to delegate appointment management to their staff without investing in a separate laptop for the staff
+- Doctors wanted to send bulk messages to patients when they were absent or out of clinic on a particular day
+- Many doctors preferred using a mobile app as a **companion to the web EMR** rather than a standalone replacement — a helper for specific tasks rather than a full parallel system
+
+The companion framing was a critical insight. Doctors were not asking for a mobile version of everything. They wanted fast, targeted access to specific high-frequency tasks.
+
+### Field Observation
+
+After the interviews, Hisham and I visited clinics as observers — watching doctors and their staff go through actual working sessions without interfering.
+
+![Clinic observation](/images/projects/doctor-app-clinic.png)
+
+The field visits reinforced the interview findings and added behavioural context: we saw exactly when doctors reached for their phones during a clinic session, what tasks triggered the impulse, and how staff coordination happened in real time.
+
+## User Stories
+
+We created a prioritised set of user stories in a structured format, then reviewed them with the Product Manager. Prioritisation was based on two factors: implementation effort and business impact.
+
+![User stories — prioritised](/images/projects/doctor-app-user-stories.png)
+
+The prioritisation process trimmed the scope significantly. Several technically interesting features were deprioritised because they required high effort without a proportionate business impact. The final scope focused on: quick prescription writing, appointment and patient management for staff, and bulk patient communications.
+
+## Solutioning
+
+### Fitting the EMR into a Mobile Screen
+
+The biggest design challenge was translating the EMR Visit Pad — a content-heavy, data-entry-intensive screen — into a mobile interface without making it overwhelming or slower than the web version.
+
+On a laptop, typing is natural and fast. On a phone, typing is the bottleneck. The design strategy was to shift from typing to tapping wherever possible: doctors should be able to choose from smart suggestions rather than entering data from scratch.
+
+### Each Visit Pad Item as a Separate Screen
+
+Research showed that doctors rarely filled every field of the Visit Pad. They wrote only what was necessary for a given patient and skipped the rest. On mobile, trying to present everything at once would create the same dense, scroll-heavy experience as the web product.
+
+The solution was to make each Visit Pad item — complaints, diagnosis, medications, instructions — its own screen. At the start of a visit, the doctor selects which items to fill. This mirrors the doctor's actual mental process rather than forcing a linear form.
+
+### Smart Suggestions
+
+Each item screen surfaces smart suggestions as the doctor opens it — before they type anything. Suggestions were categorised into two types:
+
+> **Most used by this doctor** (based on prescription history) and **most common in their speciality** (based on aggregate data across that speciality).
+
+This meant a cardiologist and a dermatologist saw different suggestions for the same field, and a doctor who frequently prescribed a particular medication saw it surfaced immediately without searching.
+
+![Homepage with shortcuts and quick prescription](/images/projects/doctor-app-homepage.png)
+
+### Homepage Design
+
+The homepage consolidated all shortcuts the doctor needed for quick actions. Rather than navigating through menus, primary tasks — new prescription, patient search, appointment list, bulk SMS — were available from the first screen.
+
+A quick Rx shortcut on the homepage allowed doctors to start a prescription in two taps, designed for the specific case of a patient calling after hours for a repeat prescription.
+
+## Outcome
+
+When SPOT launched, it surpassed the adoption metrics of the web EMR — a result that surprised both the design team and management. The app's approval rating exceeded the web product's because of its relative simplicity and how precisely it was scoped to the tasks doctors actually wanted to do on their phones.
+
+The 40% increase in new user adoption was measured in the six months following launch, tracking doctors who had not previously been active HealthPlix users and became active after SPOT's release.
+
+## Reflections
+
+Working on SPOT was unlike any project before it. Visiting clinics, sitting beside doctors during actual patient sessions, and interviewing them about their working habits gave me a level of context that desk research cannot replicate.
+
+The insight about companion use versus replacement use shaped the entire product. Had we tried to build a complete mobile replica of the web EMR, we would have produced a mediocre version of something that already existed. By designing for the specific jobs doctors wanted to do on their phones — and doing those jobs exceptionally well — we made something that had a measurable impact on the business and a genuine positive response from users.
+
+I am also grateful to Hisham for his contribution to the research phase. Getting into clinics, running interviews across dozens of doctors, and synthesising that data into actionable insights was a significant undertaking that shaped everything that followed.

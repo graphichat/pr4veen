@@ -1,14 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { Menu, X } from "lucide-react";
-import * as React from "react";
 
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Projects", href: "/projects" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" },
-];
+
 
 const sectionTitles: Record<string, string> = {
   home: "Praveen Kumar N",
@@ -26,16 +19,10 @@ interface HeaderProps {
 }
 
 export function Header({ activeSection }: HeaderProps = {}) {
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
-  const isActive = (href: string) => {
-    if (href === "/") {
-      return location.pathname === "/";
-    }
-    return location.pathname.startsWith(href);
-  };
+
 
   // Get title based on active section or default to "Praveen Kumar N"
   const headerTitle = activeSection ? sectionTitles[activeSection] || "Praveen Kumar N" : "Praveen Kumar N";
@@ -54,37 +41,7 @@ export function Header({ activeSection }: HeaderProps = {}) {
             <h1 className="text-lg font-semibold">{headerTitle}</h1>
           </div>
         )}
-        {!isHomePage && (
-          <>
-            <div className="flex lg:hidden">
-              <button
-                type="button"
-                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-muted-foreground"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                aria-label="Toggle menu"
-              >
-                {mobileMenuOpen ? (
-                  <X className="h-6 w-6" />
-                ) : (
-                  <Menu className="h-6 w-6" />
-                )}
-              </button>
-            </div>
-            <div className="hidden lg:flex lg:gap-x-8">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    isActive(item.href) ? "text-primary" : "text-muted-foreground"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </>
-        )}
+
         <div className="flex flex-1 justify-end items-center gap-4">
           {/* ⌘K hint — clicking triggers the keyboard shortcut visually */}
           <kbd
@@ -100,29 +57,7 @@ export function Header({ activeSection }: HeaderProps = {}) {
           <ThemeToggle />
         </div>
       </nav>
-      {!isHomePage && mobileMenuOpen && (
-        <div className="lg:hidden border-t">
-          <div className="space-y-1 px-4 pb-3 pt-2">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${
-                  isActive(item.href)
-                    ? "bg-accent text-accent-foreground"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
-            <div className="px-3 py-2">
-              <ThemeToggle />
-            </div>
-          </div>
-        </div>
-      )}
+
     </header>
   );
 }

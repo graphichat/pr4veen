@@ -1,0 +1,150 @@
+---
+title: "Meducampus — Student Management System"
+id: "meducampus"
+addedOn: "2024-06-18"
+projectImage: "/images/projects/crm-system.png"
+projectOldImage: "/images/projects/old-crm-system.png"
+description: "Designed Meducampus — a comprehensive Student Management System for medical colleges and healthcare education institutions, covering admissions, academics, clinical rotations, and faculty coordination."
+techStack:
+  - "Figma"
+  - "UX Strategy"
+  - "Design Systems"
+  - "Prototyping"
+  - "User Research"
+category: "EdTech / Healthcare Education"
+featured: false
+---
+
+# Meducampus — Student Management System
+
+Designed Meducampus, a Student Management System built specifically for medical colleges and healthcare education institutions. The platform covers the full student lifecycle — from admissions through academics, clinical rotations, assessments, and graduation — with distinct interfaces for students, faculty, and administrative staff.
+
+The challenge with medical education management is that it operates at the intersection of academic workflows and clinical workflows. General-purpose student management tools don't account for rotation scheduling, clinical placement tracking, or the compliance requirements specific to medical councils. Meducampus was designed to handle all of this within a single, coherent system.
+
+## Project Overview
+
+Medical colleges manage an unusually complex set of operations: academic scheduling, clinical rotation assignments, exam and assessment coordination, fee management, hostel and facility operations, and regulatory compliance with bodies like the National Medical Commission (NMC). These workflows are typically split across spreadsheets, standalone tools, and paper-based systems.
+
+Meducampus consolidates this into a unified platform with role-aware interfaces for each type of user — without forcing all roles into the same view or workflow model.
+
+### The Problem Space
+
+Institutions running medical programs faced several structural problems:
+
+- Admissions data lived in spreadsheets disconnected from the academic records system
+- Clinical rotation schedules were managed manually, leading to conflicts and gaps in placement
+- Faculty couldn't track student attendance across both classroom and clinical settings in one place
+- Students had no single view of their academic progress, fee status, and upcoming schedules
+- Administration had to manually compile reports for regulatory submissions and internal audits
+- Communication between departments was fragmented — notices, timetables, and updates went out through multiple uncoordinated channels
+
+### The Design Objective
+
+Build a platform that:
+- Serves three distinct user groups (students, faculty, admin) with purpose-built experiences for each
+- Handles both academic and clinical operations in a unified data model
+- Reduces manual coordination overhead for administrative staff
+- Gives students proactive visibility into their academic standing, schedules, and requirements
+- Produces structured data exportable for regulatory compliance and institutional reporting
+
+## UX Highlights
+
+- **Role-differentiated interfaces** — students, faculty, and admins each have distinct dashboards and workflows
+- **Rotation scheduling module** — visual timetable builder for assigning students to clinical departments and hospitals
+- **Unified attendance system** — tracks classroom, lab, and clinical attendance under one record per student
+- **Student academic profile** — single view of grades, attendance, fee status, rotation history, and alerts
+- **Faculty workload and coordination tools** — subject assignments, lecture scheduling, and assessment creation in one place
+- **Admin reporting and compliance exports** — structured data exports aligned with regulatory formats
+
+## Key Modules Designed
+
+### Admissions & Onboarding
+
+The admissions flow covers application intake, document verification, merit list generation, and student record creation. Key design decisions:
+- Stage-based pipeline view for admissions coordinators tracking each applicant's status
+- Document checklist with verification status visible to both admin and applicant
+- Automated record creation on admission confirmation, seeding academic and fee records
+
+### Academic Management
+
+Faculty and academic coordinators manage subjects, timetables, and curriculum through:
+- Drag-and-drop timetable builder with conflict detection
+- Subject-to-faculty assignment with workload visibility
+- Batch and semester management aligned to the institutional academic calendar
+
+### Clinical Rotation Management
+
+One of the most complex modules — handles assignment of students to clinical departments across affiliated hospitals:
+- Rotation schedule builder with visual department and date slot management
+- Student-to-rotation assignment with prerequisite checks (e.g., year of study, prior rotations)
+- Attendance and performance logging per rotation by supervising faculty
+- Conflict detection for overlapping assignments or under-staffed departments
+
+### Attendance Tracking
+
+Unified attendance module covering all learning contexts:
+- Lecture, practical, and clinical attendance recorded separately but reported together
+- Faculty can mark attendance via mobile or desktop
+- Student-facing view shows running attendance percentage with alerts when approaching the minimum threshold
+- Automated attendance shortage notifications to students and parents
+
+### Examinations & Assessments
+
+Covers internal assessments, university examinations, and clinical competency evaluations:
+- Assessment schedule creation and publication
+- Result entry and grade calculation
+- Student-facing result view with subject-wise breakdown
+- Promotion eligibility based on configurable grade and attendance thresholds
+
+### Fee Management
+
+Handles fee structure setup, payment tracking, and arrear management:
+- Configurable fee heads per batch and year
+- Student-facing fee ledger with due dates and payment history
+- Outstanding dues visible to admin with automated reminder triggers
+- Receipt generation and fee report exports
+
+### Communication & Notices
+
+Centralised notice board and announcement system:
+- Targeted broadcasts by batch, department, or role
+- Pinned notices for time-sensitive information
+- SMS/email integration for critical alerts (attendance shortages, exam schedules, fee dues)
+
+## Design Process
+
+### Discovery & Stakeholder Research
+
+Conducted stakeholder interviews with academic coordinators, faculty, and students from medical colleges to map current workflows and pain points. Reviewed existing tools in use (spreadsheets, standalone fee software, manual rotation registers) to understand what data structures were already established versus what needed to be designed from scratch.
+
+Key findings from discovery:
+- Rotation scheduling was the highest-friction workflow — entirely manual with no conflict visibility
+- Students had no reliable way to track their attendance standing in real time
+- Administrative staff spent significant time manually compiling reports that existed as data in disparate systems
+- Faculty wanted a way to record clinical assessments that was faster than paper forms but structured enough to be reportable
+
+### Information Architecture
+
+Designed the IA around three parallel navigation models — one per role — rather than a unified hierarchy with role-based access modifiers. Each role has a different primary workflow and mental model, so forcing them into the same structure would have created friction for all three.
+
+Mapped the data model to surface dependencies early: a student record ties together admissions, academic, clinical, fee, and hostel data — the IA had to make these connections clear without overwhelming any single view.
+
+### Wireframing & Prototyping
+
+Started with the highest-complexity modules first: rotation scheduling, attendance tracking, and the student academic profile. These had the most interaction logic and the most cross-role dependencies.
+
+Built low-fidelity wireframes for all three roles in parallel to validate that data produced by one role's workflow (e.g., faculty marking attendance) surfaced correctly in another's view (student's running total, admin's report).
+
+High-fidelity prototypes for the rotation builder and timetable management were tested in walkthroughs with academic coordinators before moving to detailed design.
+
+### Design System
+
+Built a component library specific to Meducampus covering data-dense UI patterns common to institutional software: status badges, data tables with inline actions, multi-step forms, schedule grids, and attendance progress indicators. Kept visual language clean and functional — this is a daily-use admin tool, not a marketing product.
+
+## Reflections
+
+Meducampus pushed me to think carefully about multi-stakeholder system design — where the output of one user's action is the input for another's workflow. Designing in isolation for any single role would have broken the system for the others.
+
+The rotation scheduling module was the most technically nuanced UX problem: the interface had to expose enough complexity for coordinators to manage real scheduling constraints while staying fast and usable for day-to-day edits. Getting the right level of constraint visibility — conflict flags without noise — took several iterations.
+
+The broader lesson was about scope discipline. Medical college operations span a huge range of functions. Meducampus covers the core academic and clinical workflows, but the design maintains clear module boundaries so future expansions (library, hostel, research) can be added without restructuring what already exists.

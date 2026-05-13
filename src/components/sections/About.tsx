@@ -116,12 +116,12 @@ export function About() {
               </Card>
             </MotionDiv>
 
-            <MotionDiv animation="slideUp" trigger="inView" delay={0.25} className="h-full">
+            <MotionDiv animation="slideUp" trigger="inView" delay={0.25} className="h-full md:col-span-1 lg:col-span-1">
               <CurrentlyWidget />
             </MotionDiv>
 
-            <MotionDiv animation="fadeIn" trigger="inView" delay={0.3} className="md:col-span-2 lg:col-span-3">
-              <Card>
+            <MotionDiv animation="fadeIn" trigger="inView" delay={0.3} className="h-full md:col-span-1 lg:col-span-2">
+              <Card className="h-full">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Target className="h-5 w-5 text-primary" />

@@ -1,0 +1,178 @@
+---
+title: "Patient Modal Redesign"
+id: "patient-modal-redesign"
+addedOn: "2023-06-01"
+projectImage: "/images/projects/patient-modal-cover.png"
+projectOldImage: "/images/projects/patient-modal-header-old.png"
+description: "Redesigned the Patient Modal at HealthPlix EMR to fix accumulated UX debt, consolidate fragmented workflows, and reduce support calls by 30% — without forcing doctors and staff to relearn the interface."
+techStack:
+  - "Figma"
+  - "UX Strategy"
+  - "Design Systems"
+  - "User Research"
+category: "Healthcare SaaS"
+featured: false
+---
+
+# Patient Modal Redesign
+
+Redesigned the Patient Modal (referred to internally as the Patient Popup) within HealthPlix EMR — the central interface used by both doctors and front-desk staff to view patient details, manage appointments, create bills, record payments, and perform a dozen other everyday tasks. The redesign addressed years of accumulated UX debt, where features had been added reactively in response to doctor requests rather than designed as a coherent system.
+
+## Introduction
+
+India's doctor-to-population ratio stands at approximately 1 to 10,000 — making every minute of a doctor's time extraordinarily valuable. Electronic Medical Records exist to compress documentation time and surface patient information instantly. But an EMR that slows people down is worse than no system at all.
+
+In HealthPlix EMR, patient details are surfaced through a popup — a modal that both doctors and front-desk staff access constantly. Doctors use it to review patient history before a consultation. Front-desk staff use it to create appointments, raise bills, record payments, and look up visit history. It is arguably the most-used surface in the entire product.
+
+The current Patient Modal had grown through several years of feature additions without a design-led rethink. The result was a fragmented interface where tasks required more steps than necessary, labelling was inconsistent, and some critical workflows were simply missing.
+
+**Problem Statement:** The Patient Modal had accumulated enough UX debt that it was increasing support call volume, slowing down front-desk workflows, and creating friction for newly onboarded staff who could not intuit how the interface worked.
+
+![Patient Modal — existing UI](/images/projects/patient-modal-cover.png)
+
+## Why We Needed to Redesign the Patient Modal
+
+When the Patient Modal was initially designed, there was not much thought put into it from a UX perspective. It was built to match incoming feature requests from doctors — whenever a doctor asked for something, it was added to the UI without considering how it fit into the broader workflow. This led to a modal full of workarounds, inconsistent patterns, and missing features that users had long stopped asking for.
+
+## Shortcuts and Issues in the Existing Design
+
+There were many shortcuts accumulated in the Patient Modal. The significant ones:
+
+1. **No dedicated Patient Profile tab.** The profile section was labelled "Edit" — an action label, not a section label. To add a patient photo, an entire tab was dedicated just to that, with three separate sub-sections to complete the upload. This was excessive for a task that should take seconds.
+
+2. **No proper description for bill items.** When viewing a bill, line items lacked meaningful descriptions — front-desk staff had to know item codes and shorthand from memory.
+
+3. **No way to add a bill to a past appointment.** If front-desk missed billing during a visit, there was no retrospective billing path. The only workaround was creating a new entry manually.
+
+4. **Payments split by transaction type.** If a patient paid for both an appointment and a lab service in one go, the system recorded two separate payment entries. This created confusion when front-desk later tried to reconcile payments — it looked like two payments had been made instead of one.
+
+5. **Lab test recommendations not visible to front-desk.** If a doctor added lab tests to a patient's prescription, front-desk had no way to see this from the Patient Modal. There was no workflow bridge between the clinical recommendation and the administrative action of ordering the test.
+
+6. **No consistent design patterns.** Labels, button placements, form conventions, and navigation patterns varied from tab to tab. The modal felt like several different products stitched together.
+
+7. **No support for split payment modes.** If a patient wanted to pay partly in cash and partly by card, front-desk had to create two separate payment entries. There was no single multi-mode payment flow.
+
+8. **No option to record patient deposits.** Patients who paid in advance or deposited funds for future services had no ledger entry for this. Deposits were handled outside the system.
+
+## Success Metrics
+
+1. Support calls related to the Patient Modal should decrease by at least 30%.
+2. The time taken to create a bill and appointment from the Patient Modal should decrease by 10%.
+
+## How We Approached the Solution
+
+Since we did not want doctors and staff to have to completely relearn the Patient Modal's UX, we retained the overall popup structure for this redesign and improved the interface within it.
+
+With the structure intact, we went through the modal and corrected all the elements that were not following HealthPlix's design patterns and naming conventions.
+
+For example: "Dashboard" was renamed to "Visit Pad" — because the CTA takes the user directly to the Visit Pad, not a generic dashboard. Bills can now be filtered by date, and additional options were added to address the missing workflows.
+
+![Redesign approach overview](/images/projects/patient-modal-approach.png)
+
+## Comparison: Old vs New
+
+### 1. Modal Header
+
+The modal header carries the patient's name, key details, and primary navigation. In the old design it was visually heavy with inconsistent spacing and unlabelled actions.
+
+**Old:**
+![Modal Header — Old](/images/projects/patient-modal-header-old.png)
+
+**New:**
+![Modal Header — New](/images/projects/patient-modal-header-new.png)
+
+### 2. Patient Profile Tab
+
+The old "Edit" tab combined three separate sub-sections just for photo management, and used an action label for a content section. The new design introduces a proper Patient Profile tab with a consolidated layout.
+
+**Old:**
+![Patient Profile — Old view 1](/images/projects/patient-modal-profile-old-1.png)
+![Patient Profile — Old view 2](/images/projects/patient-modal-profile-old-2.png)
+
+**New:**
+![Patient Profile — Redesigned](/images/projects/patient-modal-profile-new.png)
+
+## Planning & Wireframing
+
+![Wireframes — Phase 1 planning](/images/projects/patient-modal-wireframe.png)
+
+During the initial planning phase, it became clear that the Patient Modal had too much information and too many functions to remain a popup. Ideally, all of this should live as a standalone patient page. However, asking doctors and staff who had used the popup for years to adapt to a completely new structural paradigm would create unnecessary cognitive overload during the rollout.
+
+The solution was to split the project into two phases.
+
+### Phase 1: Keep the Popup Structure, Improve the UX
+
+In Phase 1, the UI overhaul is intentionally minimal. The goal is to fix all the UX issues and missing workflows within the existing popup structure — so that the experience improves significantly without changing how users navigate to or think about patient information.
+
+### Phase 2: Evolve into a Dedicated Patient Page
+
+In Phase 2, the popup is converted into a dedicated full-page patient view for faster access, more information density, and a foundation for future features like timeline views, activity logs, and cross-module patient history.
+
+During planning, I broke the work into three categories:
+
+- **UI Redesign** — visual corrections, consistent patterns, updated typography and spacing
+- **UX Redesign** — workflow fixes, renamed labels, restructured information architecture
+- **Fix Past Workarounds** — address the missing features that had been worked around since launch
+
+The redesign was planned tab by tab, so each section could be reviewed, tested, and handed off independently without blocking the rest.
+
+## Phase 1: Detailed UX Changes
+
+### Modal Header and Navigation
+
+The header was the first thing users saw and the primary navigation surface. Changes made:
+
+- Renamed all tabs to use content labels instead of action labels ("Edit" → "Profile", "Dashboard" → "Visit Pad")
+- Standardised the visual weight and spacing of header elements
+- Made the patient's key identifiers (name, ID, age, contact) consistently visible across all tabs without repetition
+- Moved secondary actions out of the header to reduce cognitive clutter
+
+### Patient Profile Tab
+
+- Consolidated photo upload from three sub-sections into a single inline control
+- Organised patient demographic fields into logical groups (identity, contact, insurance)
+- Removed the dedicated photo tab — photo management is now inline within the Profile tab
+- Applied consistent field labels and input patterns from the HealthPlix design system
+
+### Billing Tab
+
+- Added date-based filtering so front-desk can quickly locate bills from a specific visit or period
+- Introduced bill item descriptions — each line item now shows a human-readable name alongside the code
+- Added a "Bill Past Appointment" option, enabling retrospective billing for visits where billing was missed
+- Payments are now consolidated — a single payment covering both appointment and lab services appears as one entry in the ledger, eliminating the confusion of split records
+
+### Payments Tab
+
+- Introduced multi-mode payment support — front-desk can now record a single payment split across cash, card, and UPI without creating separate entries
+- Added a patient deposit ledger — advance payments and deposits are now tracked as a balance that can be applied to future bills
+- Payment history is displayed in a single unified list regardless of which service was billed
+
+### Lab Tests Visibility
+
+- Doctor-recommended lab tests from prescriptions are now surfaced in the Patient Modal for front-desk staff
+- A "Pending Lab Tests" indicator appears on the relevant tab when recommendations exist, so front-desk can act on them without switching to the clinical view
+- Tests can be ordered directly from this view, closing the workflow gap between clinical recommendation and administrative action
+
+### Design Pattern Consistency
+
+- Applied a uniform component set across all tabs — form fields, buttons, status badges, table rows, and empty states now follow the same visual and interaction conventions
+- Action hierarchies standardised: primary actions are consistently placed and visually distinct from secondary ones
+- Section headings, tab labels, and helper text reviewed and rewritten for clarity
+
+## Outcomes
+
+Phase 1 shipped as a single release across all HealthPlix EMR instances. Post-launch monitoring tracked the two success metrics set at the start:
+
+- **Support call volume** for Patient Modal-related issues dropped significantly — exceeding the 30% reduction target
+- **Billing workflow time** decreased as front-desk no longer needed to work around missing features or create duplicate entries
+- **Onboarding friction** reduced for new front-desk staff, who found the relabelled tabs and consistent patterns easier to navigate without prior training
+
+Qualitative feedback from front-desk staff highlighted the consolidated payment flow and the lab test visibility as the two changes with the most immediate impact on daily operations.
+
+## Reflections
+
+This project was a good example of designing for continuity over novelty. The temptation with accumulated UX debt is to declare a clean break and redesign from scratch. In most enterprise software contexts — especially healthcare, where staff retraining has real costs — that is the wrong instinct.
+
+The two-phase approach let us ship meaningful improvements quickly in Phase 1 while laying the groundwork for the more structural changes in Phase 2. Every UX fix in Phase 1 also fed directly into understanding the information architecture that Phase 2 would need to support.
+
+The lab test visibility fix was the most instructive problem. It was not technically complex, but it required understanding the handoff between two different roles — the doctor completing a clinical action and the front-desk staff who needed to act on it administratively. Designing that bridge was the real work.

@@ -1,0 +1,143 @@
+---
+title: "Rider App — Sample Transport Mobile"
+id: "rider-app"
+addedOn: "2024-11-01"
+projectImage: "/images/projects/doctor-app-redesign.png"
+projectOldImage: "/images/projects/old-doctor-app.png"
+description: "Designed the Rider App — the mobile companion for IQHealth's Sample Transport Management System — built for field runners who collect and deliver medical samples between facilities."
+techStack:
+  - "Figma"
+  - "Prototyping"
+  - "Mobile UX"
+  - "Design Systems"
+  - "User Research"
+category: "Healthcare SaaS"
+featured: true
+---
+
+# Rider App — Sample Transport Mobile
+
+Designed the Rider App as the mobile-facing layer of IQHealth's Sample Transport Management System (STMS). While the STMS platform handles dispatch, tracking, and operations from the lab and admin side, the Rider App is the tool that field runners carry on the ground — used to accept assignments, confirm sample pickups, update status in transit, and complete deliveries.
+
+This is a companion project to the STMS platform. The two share a data layer but serve completely different use contexts: the STMS runs on desktop at lab counters and operations dashboards; the Rider App runs on Android phones in the hands of riders who are often on a two-wheeler, moving between facilities across a city.
+
+## The Design Context
+
+Field runners in diagnostic networks typically receive trip assignments via phone calls or WhatsApp messages, carry paper manifests, and report delivery by calling back to the dispatch team. There is no structured app experience — and for good reason. Previous attempts to introduce apps in similar workflows have failed because:
+
+- Data entry while on a trip is error-prone and unsafe
+- Connectivity is unreliable on the move
+- Riders have varying levels of digital literacy
+- Any friction in the app gets bypassed immediately — riders revert to WhatsApp
+
+The design challenge was not just building an app. It was building an app that riders would actually use, every trip, without supervisor enforcement.
+
+## Design Principles
+
+These principles drove every decision in the Rider App:
+
+**Speed over completeness** — A rider interaction should take under 10 seconds. If it takes longer, it will be skipped.
+
+**Tap, not type** — Every status update is a single tap confirmation. Text input is only for exception notes, and even then it is optional.
+
+**Offline-first** — The app queues all actions locally and syncs when connectivity resumes. A rider should never see a failure or loading state that blocks them.
+
+**Clear next action** — At every point in a trip, there is exactly one primary action visible. The app tells the rider what to do next, not what all the options are.
+
+**Minimal notification noise** — Riders get notified when a new trip is assigned, and when there is a critical exception on their current trip. Nothing else interrupts them.
+
+## Key Flows
+
+### Trip Assignment
+
+When a new sample transport trip is dispatched from the STMS platform, the rider receives a push notification. The assignment screen shows:
+- Pickup location with map pin
+- Number of samples to collect
+- Sample manifest (tap to expand)
+- Estimated pickup window
+
+Single tap to accept. No confirmation form, no extra steps.
+
+### Sample Pickup
+
+At the collection point, the rider taps to confirm arrival. The pickup flow:
+- Shows the manifest with each sample listed
+- Rider scans barcodes or confirms manually per sample
+- Captures photo of the sample bag before leaving (optional but prompted)
+- Confirms pickup — all samples or flags a discrepancy if a sample is missing
+
+Discrepancy handling is a first-class flow: if a sample on the manifest is not present, the rider marks it as missing with one tap. The system notifies the dispatch team immediately, without requiring the rider to call anyone.
+
+### In-Transit
+
+During transit, the app shows a minimal in-transit screen:
+- Destination address with map
+- Sample count
+- Trip timer
+
+No action is required from the rider unless there is an exception. The screen stays persistent so the rider can refer to the destination at any point without unlocking and navigating.
+
+### Delivery Confirmation
+
+At the receiving facility, the rider taps to confirm arrival. The delivery flow mirrors pickup:
+- Manifest shown for handoff confirmation
+- Receiving staff signs off digitally or the rider confirms delivery manually
+- Photo capture of the received batch (optional)
+- Delivery confirmed — trip closed
+
+### Exception Handling
+
+Designed as a lightweight interrupt flow for situations that don't fit the normal flow:
+- Sample damaged in transit → tap to flag, capture photo, leave note
+- Unable to reach pickup location → tap to flag, system notifies dispatch
+- Delivery refused by receiving facility → flag with reason selection
+
+All exception types are predefined tap selections. Free text is available but never required.
+
+## UX Highlights
+
+- **Single-tap status updates** — no typing, no forms for the primary flow
+- **Offline queue** — all actions work without connectivity and sync automatically
+- **Persistent in-transit screen** — destination always accessible, no navigation needed mid-trip
+- **Manifest scan + manual fallback** — barcode scanning with tap-to-confirm fallback for environments where scanning is impractical
+- **Discrepancy capture built into the flow** — not an afterthought modal, a first-class step
+- **Minimal permission requirements** — camera and location only, no contact or storage access
+
+## Connection to STMS Platform
+
+The Rider App is the field layer of a two-sided system. Every action taken in the Rider App surfaces in real time on the STMS operations dashboard:
+
+- Pickup confirmation → sample status changes from "Dispatched" to "In Transit" on the dashboard
+- Delivery confirmation → trip closed, TAT recorded, receiving lab notified
+- Exception flags → alert appears on the dispatch team's dashboard immediately
+
+The data model is shared — there is no duplication. Designing both sides of this system meant the handoff between the desktop STMS and the mobile Rider App could be designed as a single coherent workflow rather than two separate products that happen to talk to each other.
+
+## Design Process
+
+### Field Research
+
+Observed field runners at two client facilities during actual sample transport runs. The most important insight from this: riders navigate, handle samples, and interact with people at collection points — all at the same time. Any app that requires two hands or sustained attention is incompatible with the real use context.
+
+Also observed that riders checked their phones for the destination address multiple times during a trip, including just before arrival. This drove the decision to keep the in-transit screen persistent with the destination always visible.
+
+### Prototype Testing
+
+Built a high-fidelity Figma prototype and walked through it with three riders from a client facility. The walkthroughs were structured around specific scenarios: normal trip, missing sample at pickup, delivery refused.
+
+Key feedback from the sessions:
+- The scan flow needed a clear "can't scan" escape — riders at some facilities don't have barcoded samples yet
+- The exception reason selection needed clearer language — initial copy was too clinical
+- The in-transit screen needed the sample count visible, not just the destination — riders wanted to verify during transit
+
+All three points were incorporated before handing off to development.
+
+### Design System Integration
+
+The Rider App uses a mobile-specific component set built within the IQHealth design system. The visual language — colours, type scale, status badges — is consistent with the broader HIMS platform, but the interaction patterns are purpose-built for one-handed mobile use: larger tap targets, bottom-anchored primary actions, and reduced information density per screen.
+
+## Reflections
+
+The Rider App is the most constraint-driven design I've worked on in this project. Every additional feature or confirmation step is a direct cost to the rider — and ultimately to whether the system gets used at all. The design process involved saying no frequently: to additional status details mid-trip, to mandatory exception notes, to confirmation dialogs before primary actions.
+
+The right mental model for this app is a guided checklist, not an information system. The rider doesn't need the app to tell them about the samples — they have the samples in their bag. They need the app to help them confirm, flag, and close trips as quickly as possible so the system of record stays accurate.
