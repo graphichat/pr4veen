@@ -1,5 +1,6 @@
 import { slugify } from "@/lib/markdown-headings";
 import { ProcessPhase } from "@/components/markdown/ProcessPhase";
+import { ProjectChart } from "@/components/markdown/ProjectChart";
 import { Compare } from "@/components/ui/compare";
 
 function CompareImgs({
@@ -31,6 +32,7 @@ function CompareImgs({
 
 export const mdxComponents: any = {
   ProcessPhase,
+  ProjectChart,
   CompareImgs,
   h1: ({ node, children, ...props }: any) => {
     const text = String(children);

@@ -63,6 +63,10 @@ The dispatch flow allows collection center staff to batch samples for transport,
 - Manifest generated as a scannable reference, not just a list
 - Confirmation screen surfaces sample count and destination before committing
 
+![Samples worklist with tray-side assignment — pending and collected samples staged into the active transport tray](/images/projects/iqhealthsampleswithtray.png)
+
+The collection-side worklist is built around batch-first behaviour. The technician scans or selects samples on the left; the active tray on the right fills in real time, with slot-level visibility into what's already in the batch. Status pills (pending / collected / blood / serum) and a smart-tag column make it possible to triage what belongs in the next shipment without leaving the screen.
+
 ### In-Transit Tracking (Field Runner — Mobile)
 
 Designed for speed and low friction. A runner receives a trip assignment, can scan or tap to confirm pickup, and updates status at each checkpoint:
@@ -83,6 +87,40 @@ The dashboard gives lab managers and coordinators a live view of all active tran
 - Status breakdown: pending dispatch / in transit / received / exceptions
 - TAT trends per route and per runner
 - One-click drill-down into individual transport records
+
+![Shipments dashboard — pipeline of draft, out-for-delivery, and delivered shipments with shipment-detail drawer](/images/projects/iqhealthsampleshipments.png)
+
+The shipments view is the operations team's primary surface. Shipments are grouped by lifecycle stage (draft / out for delivery / delivered) with quick filters and bulk actions, and the detail drawer on the right surfaces sample contents, manifest, and chain-of-custody actions without forcing the operator to navigate away from the queue.
+
+<ProjectChart
+  type="bar"
+  title="Sample transport — live status distribution"
+  caption="Typical mid-shift snapshot across a multi-facility deployment: most volume sits in transit while exceptions stay a small but watched cohort."
+  data={[
+    { name: "Pending dispatch", value: 42 },
+    { name: "In transit", value: 86 },
+    { name: "Received", value: 134 },
+    { name: "Exceptions", value: 9 },
+  ]}
+  color="var(--chart-2)"
+/>
+
+<ProjectChart
+  type="area"
+  title="Turnaround time — collection to receipt"
+  caption="Median TAT (in minutes) per shift across the first three months after STMS rollout. The drop reflects the move from paper + WhatsApp coordination to a structured digital chain of custody."
+  data={[
+    { name: "W1", value: 184 },
+    { name: "W2", value: 172 },
+    { name: "W3", value: 161 },
+    { name: "W4", value: 148 },
+    { name: "W6", value: 132 },
+    { name: "W8", value: 118 },
+    { name: "W10", value: 104 },
+    { name: "W12", value: 96 },
+  ]}
+  color="var(--chart-1)"
+/>
 
 ## Design Process
 

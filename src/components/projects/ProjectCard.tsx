@@ -39,6 +39,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     "from-amber-500/60 via-yellow-500/60 to-orange-500/60",
   ];
   const gradient = gradientColors[project.id.charCodeAt(0) % gradientColors.length];
+  const thumbnailSrc = project.thumbnail || project.projectImage;
 
   return (
     <Link to={`/project/${project.id}`} className="block h-full group">
@@ -47,11 +48,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {project.featured && (
             <Badge variant="secondary" className="absolute top-3 right-3 z-10 bg-background/90 backdrop-blur-sm shadow-sm">Featured</Badge>
           )}
-          {project.projectImage ? (
+          {thumbnailSrc ? (
             <>
               {!imgLoaded && <Skeleton className="absolute inset-0 rounded-none" />}
               <img
-                src={project.projectImage}
+                src={thumbnailSrc}
                 alt={project.title}
                 onLoad={() => setImgLoaded(true)}
                 className={cn("h-full w-full object-cover transition-transform duration-500 group-hover:scale-105", !imgLoaded && "opacity-0")}

@@ -4,7 +4,7 @@ id: "iqhealth"
 addedOn: "2024-09-01"
 projectImage: "/images/projects/emr-visit-pad.png"
 projectOldImage: "/images/projects/old-emr-pad.png"
-description: "Leading the UX architecture and product modernisation of IQHealth — IQLine's end-to-end Hospital Information Management System covering OPD, IPD, diagnostics, billing, pharmacy, and inter-facility operations."
+description: "Architected and co-created IQHealth — IQLine's end-to-end HIMS platform — by unifying previously-separate HIMS, LIMS, and RIS softwares into a single product covering OPD, IPD, diagnostics, billing, pharmacy, and inter-facility operations."
 techStack:
   - "Figma"
   - "UX Strategy"
@@ -17,13 +17,17 @@ featured: true
 
 # IQHealth — End-to-End HIMS Platform
 
-Leading the UX architecture and product modernisation of IQHealth — IQLine's end-to-end Hospital Information Management System. IQHealth covers the full spectrum of healthcare facility operations: patient registration and OPD workflows, IPD and ward management, diagnostics and lab operations, pharmacy, billing, inter-facility sample transport, and reporting.
+IQHealth is IQLine's end-to-end Hospital Information Management System — covering patient registration and OPD workflows, IPD and ward management, diagnostics and lab operations, pharmacy, billing, inter-facility sample transport, and reporting. It did **not** exist as a unified product before I joined. What existed were three separate softwares — HIMS, LIMS, and RIS — each built and operated in isolation, with inter-system communication held together by point-to-point integrations and a lot of manual workarounds.
 
-This is an ongoing, long-horizon project. I joined IQLine as Product Design Lead in September 2024 with a mandate to modernise the platform's UX, rebuild the design system from scratch, and drive a structural redesign focused on modularity and multi-product interoperability. The work spans product strategy, information architecture, hands-on UX design across modules, design system development, and design process establishment for the team.
+I joined IQLine as Product Design Lead in September 2024 and, working with the engineering team, architected and co-created IQHealth as a single platform that unifies those previously-separate products. The work spans product strategy, platform architecture, information architecture, hands-on UX design across modules, design system development, and establishing the design process for the team. This is an ongoing, long-horizon project.
 
 ## Product Overview
 
 IQHealth serves hospitals, diagnostic centres, polyclinics, and multi-facility healthcare networks across India. The platform handles workflows that span clinical, administrative, and operational functions — often within a single facility session.
+
+![IQHealth platform architecture — multi-tenant hierarchy from platform layer through tenants, branches, and departments](/images/projects/iqhealtharchitecture.png)
+
+The platform is organised as a multi-tenant hierarchy — a shared platform layer managed by IQLine support staff, tenants administered by partner organisations, and branch/facility/department levels used day-to-day by clinical and operations staff. Cross-cutting services like rider management and reagent supply chain plug into the platform layer.
 
 ### Platform Scope
 
@@ -62,21 +66,29 @@ IQHealth serves hospitals, diagnostic centres, polyclinics, and multi-facility h
 - Referral management
 - Shared patient records across facility network
 
+## The Starting State
+
+Before IQHealth, IQLine and its client facilities ran on three separate products — HIMS, LIMS, and RIS — each with its own data model, its own UI, and its own assumptions about workflow. Getting them to talk to each other was a nightmare:
+
+**Point-to-point integrations everywhere** — Every product was wired directly to every other product it needed to share data with. Adding a new app meant building a new bespoke integration to each of the existing ones.
+
+![Old vs. new inter-app communication — point-to-point integrations between HIMS/LIMS/RIS replaced with a shared databus/eventbus layer](/images/projects/iqhealthappcommunication.png)
+
+The diagram above captures the shift. On the left is the world before IQHealth: LIMS, Doctor, Frontdesk, Pharma, and even Google Calendar all wired to each other in a tangled mesh. On the right is the architecture I designed with the team — every app publishes to and subscribes from a shared databus/eventbus, with IPD, Ground Collection, Attendance, and the Lab Instrument Plugin sitting cleanly on the same backbone. Decoupling at this layer is what made it possible to build one product instead of three.
+
+**No shared design language** — Each of the three products had been built by different developers and timeframes. Components were recreated per app, there was no shared token set, no component library, and no design-to-dev handoff standard.
+
+**Workflow fragmentation across products** — Front-desk staff, doctors, lab technicians, and pharmacy staff each had to context-switch between separate apps to complete a single patient encounter. The workflow was fragmented because the *products* were fragmented.
+
+**Scalability constraints** — Multi-facility deployments, role-based views, and new module integrations all required bespoke work in each app. Nothing scaled cleanly without a unifying architecture underneath.
+
 ## The Design Challenge
 
-IQHealth existed before I joined — it had grown feature-by-feature over time, with inconsistencies accumulating across modules. The core challenges I inherited were:
-
-**Architectural fragmentation** — Each module had evolved independently, resulting in inconsistent navigation patterns, duplicate UI components across modules, and workflows that required users to context-switch between disconnected interfaces.
-
-**No design system** — Components were recreated per module by different developers and, where design existed, it was undocumented. There was no shared token set, no component library, and no design-to-dev handoff standard.
-
-**Workflow complexity without clarity** — HIMS workflows are inherently complex. The existing UI had absorbed that complexity without filtering it — screens were dense, action hierarchies were unclear, and users relied on training and habit rather than interface guidance.
-
-**Scalability constraints** — The platform needed to support multi-facility deployments, role-based views, and new module integrations without each addition requiring a full re-think of the existing interface.
+Given that starting point, the brief I took on was bigger than a redesign: design the architecture and product structure for a single, unified HIMS platform — IQHealth — that the three legacy products could be folded into, and that future modules could plug into without re-creating the same fragmentation.
 
 ## Design Strategy
 
-My approach to modernising IQHealth was sequenced in three layers:
+My approach to building IQHealth out of the three legacy products was sequenced in three layers:
 
 ### 1. Design System First
 
@@ -88,6 +100,26 @@ Before redesigning any screens, I built the IQHealth design system from scratch 
 - **Documentation and handoff standards**: component specs, usage guidelines, and Figma-to-dev handoff conventions aligned with the engineering team's workflow
 
 Building this first meant that each subsequent module redesign contributed to the system rather than diverging from it.
+
+![IQHealth platform data flow — configuration studio, shared platform services, and consumer apps with auditing, common language, and integrations](/images/projects/iqhealthdataflowarchitecture.png)
+
+The data-flow map above captures how the design system, configuration studio, shared platform services, and consumer apps relate. The shared layer (workflow builder, document builder, form builder, master data, audit, billing, scheduling) is what every module reads from and writes to — so a change to a clinical form definition flows through to the Doctor app, LIMS, IPD, and reports without per-module rework.
+
+<ProjectChart
+  type="bar"
+  title="Design system — component library breakdown"
+  caption="Approximate distribution of the 300+ components built for the IQHealth design system, grouped by usage category."
+  data={[
+    { name: "Forms & inputs", value: 82 },
+    { name: "Tables & lists", value: 54 },
+    { name: "Navigation", value: 38 },
+    { name: "Status & feedback", value: 46 },
+    { name: "Modals & overlays", value: 32 },
+    { name: "Data viz", value: 28 },
+    { name: "Empty / loading", value: 24 },
+  ]}
+  color="var(--chart-2)"
+/>
 
 ### 2. Structural Redesign — Navigation and IA
 
@@ -108,6 +140,10 @@ The OPD consultation flow is the highest-frequency workflow in the system — us
 - Reducing the cognitive load of the consultation interface by surfacing only what's relevant to the current encounter stage
 - Separating the clinical note-taking surface from order management (investigations, prescriptions) while keeping them contextually linked
 - Making patient history and prior visit context accessible without navigating away from the active consultation
+
+![Visit Registration — Frontdesk capture of patient details, ABHA linkage, vitals, and appointment context on a single screen](/images/projects/iqhealthvisitregistration.png)
+
+The Visit Registration screen at the Frontdesk is the entry point for every OPD encounter. The redesign groups patient identity (with optional ABHA verification/creation), demographics, vitals, and appointment context into clearly separated zones, while keeping the whole flow above the fold for a returning patient — print labels, save, and create-visit actions live in a persistent footer so the staff member never has to scroll to commit.
 
 ### IPD Admission and Ward Management
 
@@ -130,6 +166,25 @@ The LIS module handles test requests, sample processing, result entry, and repor
 - Result entry forms adapted to test type (numeric ranges, text findings, image attachment)
 - Report preview and authorisation flow for pathologists before report release
 - Turnaround time visibility for operations management
+
+![LIMS Samples worklist — pending and collected samples with tray-side assignment for the active transfer](/images/projects/iqhealthsampleswithtray.png)
+
+The Samples worklist pairs the technician's tube-level worklist with a live tray view on the right — so as samples are scanned or assigned, the tray updates in place. Sample status (pending / collected / blood / urine) is colour- and label-coded for fast triage, and the panel-side bulk actions (collect, assign tray, transfer) match the way technicians actually batch work at the bench.
+
+<ProjectChart
+  type="area"
+  title="Module redesign — cumulative coverage since Sept 2024"
+  caption="Cumulative count of IQHealth modules and sub-modules shipped through the new design system, by quarter."
+  data={[
+    { name: "Q4 '24", value: 3 },
+    { name: "Q1 '25", value: 7 },
+    { name: "Q2 '25", value: 12 },
+    { name: "Q3 '25", value: 18 },
+    { name: "Q4 '25", value: 24 },
+    { name: "Q1 '26", value: 29 },
+  ]}
+  color="var(--chart-1)"
+/>
 
 ## Design Process at IQLine
 

@@ -12,6 +12,7 @@ import { Hobbies } from "@/components/sections/Hobbies";
 import { Blogs } from "@/components/sections/Blogs";
 import { ToolsStrip } from "@/components/sections/ToolsStrip";
 import { FloatingDock } from "@/components/ui/floating-dock";
+import { useLocation } from "react-router-dom";
 import {
   Home as HomeIcon, FolderKanban, User, Mail, BookOpen,
   Share2, MessageSquare, Award, Briefcase, Gamepad2,
@@ -33,7 +34,12 @@ const DOCK_ITEMS = [
 ];
 
 export function Home() {
-  const [activeSection, setActiveSection] = useState<string>("home");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const initialSection = searchParams.get("section") || location.hash.replace("#", "");
+  const defaultSection = DOCK_ITEMS.some(item => item.id === initialSection) ? initialSection : "home";
+
+  const [activeSection, setActiveSection] = useState<string>(defaultSection);
   const projectsRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);

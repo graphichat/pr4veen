@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 export function ProjectHeader() {
   const location = useLocation();
   // If we're on a project detail page, go back to projects list, otherwise go to home
-  const backTo = location.pathname.startsWith("/project/") ? "/projects" : "/";
+  const backTo = location.pathname.startsWith("/project/") ? "/?section=projects" : "/";
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

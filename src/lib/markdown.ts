@@ -4,6 +4,11 @@ export interface ProjectMetadata {
   addedOn: string;
   projectImage: string;
   projectOldImage?: string;
+  /**
+   * Optional thumbnail used by project list/cards.
+   * Falls back to projectImage when not set.
+   */
+  thumbnail?: string;
   description: string;
   techStack: string[];
   category: string;
@@ -39,14 +44,14 @@ export function loadProjects(): Project[] {
   const rawModules = import.meta.glob("/src/content/projects/*.mdx", { 
     eager: true,
     query: "?raw",
-    import: "default"
   });
 
   const projects: Project[] = [];
 
   for (const path in modules) {
     const module = modules[path] as any;
-    const rawContent = rawModules[path] as string;
+    const rawModule = rawModules[path] as any;
+    const rawContent = rawModule ? rawModule.default : "";
     
     // Check if module has frontmatter
     if (!module.frontmatter) {
