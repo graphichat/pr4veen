@@ -2,8 +2,7 @@
 title: "Patient App Redesign"
 id: "patient-app-redesign"
 addedOn: "2024-03-10"
-projectImage: "/images/projects/patient-app-redesign.png"
-projectOldImage: "/images/projects/old-patient-app.png"
+projectImage: "/images/projects/healthplix/patient-app-cover.png"
 description: "Redesigned Patient App at HealthPlix, increasing user engagement by 35%."
 techStack:
   - "Figma"
@@ -16,196 +15,52 @@ featured: false
 
 # Patient App Redesign
 
-Completely restructured the Patient App UI at HealthPlix, focusing on improving user engagement and making healthcare information more accessible to patients. The redesign transformed how patients interact with their health data, making it easier to understand, access, and act upon medical information.
+HealthPlix is a clinical technology company whose core product helps doctors manage their practice — prescription writing, patient records, consultation history. The patient-facing app is the other half of that equation: it gives patients access to their prescriptions, lets them book appointments, and keeps them connected to their doctor between visits.
 
-## Project Overview
+When I worked on this project, the patient app had been live for a while. It worked. But the numbers told a different story — only 15% of registered patients were using it in any given month, and the support team was fielding a steady stream of tickets about things that should have been obvious. Patients were struggling to understand their own health data, features that could have made a real difference were going undiscovered, and the app was doing very little to bring people back after their first visit.
 
-The Patient App serves millions of patients, providing access to medical records, appointment scheduling, medication reminders, and health information. The original design was functional but lacked engagement, with low daily active users and poor information comprehension rates.
+The brief I took on was to redesign it from the ground up.
 
-### The Challenge
+## Understanding Why Patients Weren't Engaging
 
-The app faced several critical issues:
-- Low user engagement - Only 15% monthly active users
-- Poor information comprehension - Patients struggled to understand medical data
-- Low feature discovery - Many valuable features went unused
-- Accessibility barriers - Difficult for patients with varying technical skills
+Before touching the interface, I needed to understand the gap between what the app was offering and what patients actually needed from it. I interviewed 40 patients across a range of demographics, health conditions, and comfort with technology. Some were managing chronic conditions and checking in frequently. Others had downloaded the app after a one-time visit and never opened it again.
 
-### The Solution
+![Patient App — early research and concept exploration in Figma, mapping flows and information structure before high-fidelity work began](/images/projects/iqhealth/patient-app-research.png)
 
-A comprehensive redesign focusing on:
-- Simplified information architecture
-- Visual data representation
-- Proactive engagement features
-- Accessibility improvements
-- Mobile-first design approach
+The picture that came out of the research was consistent. Patients found the app passive — it stored records, but it didn't help them understand them. Medical terminology used in prescription summaries and test results was often opaque. The navigation assumed familiarity with a clinical data model that most patients didn't have. People weren't discovering appointment booking or medication reminders because they weren't looking for them in the places the app had put them.
 
-## UX Highlights
+There was also a trust dimension. Patients who were unfamiliar with digital health tools were cautious. An interface that felt clinical and complicated reinforced that caution. The design needed to earn trust by making things feel simple and clear, not by adding explanations on top of existing complexity.
 
-- **Increased user engagement by 35%** - More patients actively using the app
-- **Improved information accessibility** - Better comprehension of health data
-- **Enhanced user experience** - Streamlined workflows and clearer interface
-- **Mobile-first design approach** - Optimized for smartphone usage
-- **Reduced support queries by 45%** - Clearer interface and better help content
-- **Increased appointment bookings by 28%** - Improved scheduling interface
+I ran a broader survey with 500+ patients to pressure-test the qualitative findings and segment by usage pattern. The analytics also pointed to a specific set of drop-off moments — points in the app where users arrived and then left without doing what the flow was designed for.
 
-## Key Features
+## The Design Direction
 
-### Health Dashboard
+The research crystallised a few core principles that shaped the redesign. The first was visual over textual: where the app had displayed raw clinical data, the redesign would use charts, timelines, and structured summaries that communicated meaning rather than just transferring information. The second was proactive over passive — the app needed to reach out, not just sit there waiting to be opened. The third was mobile-first, not mobile-adapted. The original app had been designed for a desktop mental model and then squeezed into a phone. The redesign treated the phone as the primary context from the start.
 
-Redesigned dashboard featuring:
-- Visual health summaries with charts and graphs
-- Medication reminders with clear scheduling
-- Upcoming appointments prominently displayed
-- Quick access to recent test results
-- Health trends over time
+These weren't just design principles — they were direct responses to what patients had told us.
 
-### Simplified Navigation
+## What Changed
 
-Streamlined navigation with:
-- Bottom navigation for primary actions
-- Contextual menus for secondary features
-- Clear categorization of information
-- Search functionality for quick access
-- Personalized shortcuts
+The home screen was the biggest shift. The original version was a list of links to sections of the app. The redesign replaced it with a contextual health dashboard — a surface that surfaced upcoming appointments, recent test results, and active medication schedules in one view, with visual treatments that made the information readable at a glance. Patients no longer needed to navigate to find out what was relevant to them right now; the app surfaced it.
 
-### Appointment Management
+Navigation was restructured around the tasks patients actually wanted to do — book an appointment, see a prescription, check a result — rather than around the way clinical data was organised on the backend. Bottom navigation handled the primary actions. Secondary features were available contextually, but they weren't competing for attention on the main interface.
 
-Enhanced appointment features:
-- Visual calendar interface
-- One-tap rescheduling
-- Appointment reminders
-- Doctor availability visualization
-- Waitlist management
+The appointment booking flow was redesigned as a visual calendar with clear doctor availability, one-tap rescheduling, and confirmation states that gave patients confidence the booking had gone through. The previous flow had a few too many ambiguous states that were generating a disproportionate share of support queries.
 
-### Health Records Access
+Health records got a significant rework. Test results and prescription summaries now displayed with plain language summaries alongside the clinical data — not replacing the source record, but helping patients orient before they read the detail. A timeline view of health history gave patients a sense of continuity rather than a stack of disconnected records.
 
-Improved medical records viewing:
-- Simplified medical terminology
-- Visual representations of data
-- Timeline view of health history
-- Download and sharing capabilities
-- Print-friendly formats
+![Patient App — prototype flows covering Login, Home, Appointment Booking, Patient Profile, Online Consultation, and Clinic Check-In](/images/projects/iqhealth/patient-app-prototype.png)
 
-## Design Process
+The prototype stage covered the full set of primary flows: login and onboarding, the home dashboard, appointment booking, patient profile, online consultation, and clinic check-in. Each flow was tested with patients before moving to final design — the booking and consultation flows went through two rounds of iteration based on usability testing feedback.
 
-### User Research
+## Results
 
-Studied patient behaviors and conducted interviews to understand engagement barriers. We interviewed 40 patients across different demographics, technical skill levels, and health conditions.
+After the redesign shipped, monthly active users increased by 35%. Support queries dropped by 45%. Appointment bookings through the app went up 28%. In usability testing, information comprehension scores improved significantly — patients were reading their health data and understanding it, rather than opening the app, getting confused, and closing it again.
 
-**Research Methods:**
-- In-depth user interviews
-- Usability testing sessions
-- Survey of 500+ patients
-- Analytics data analysis
-- Support ticket review
+The qualitative feedback reflected that too. Patients who had found the original app confusing described the redesigned version as something they actually wanted to open. That shift — from a tool you use because you have to, to something you return to — was what the project was really trying to achieve.
 
-**Key Insights:**
-- Patients wanted simpler language
-- Visual data was preferred over text-heavy content
-- Mobile usage was primary, not secondary
-- Proactive notifications increased engagement
-- Trust was built through transparency
+## Reflections
 
-**Deliverables:**
-- Research findings report
-- User personas (6 distinct personas)
-- User stories (50+ stories)
-- Journey maps
-- Pain point analysis
+What this project reinforced for me is that healthcare UX fails most often not because of bad design execution, but because the design started from the wrong frame of reference. Clinical tools are built from a data model — the records, the test types, the prescription structure. When that same model becomes the navigation and the layout of a patient-facing app, it asks patients to understand their health through a system that was built for clinicians. Patients don't need less information. They need the same information reframed around their context: *what does this mean for me, what do I need to do next, and when do I need to come back.*
 
-### Design
-
-Restructured UI and created designs focused on improving engagement and accessibility. We prioritized clarity, simplicity, and visual communication over feature density.
-
-**Design Principles:**
-- Clarity over cleverness
-- Visual over textual
-- Proactive over reactive
-- Accessible by default
-- Mobile-first approach
-
-**Key Design Changes:**
-- Simplified color palette for better readability
-- Larger touch targets for mobile
-- Clearer typography hierarchy
-- Visual data representations
-- Reduced cognitive load
-
-**Deliverables:**
-- Design mockups (80+ screens)
-- Prototypes (15 key flows)
-- Design system (200+ components)
-- Style guide
-- Accessibility guidelines
-
-## Impact & Results
-
-### Quantitative Metrics
-
-- **35% increase in user engagement** - Monthly active users increased from 15% to 20.25%
-- **45% reduction in support queries** - Clearer interface reduced confusion
-- **28% increase in appointment bookings** - Improved scheduling interface
-- **60% improvement in information comprehension** - Measured through user testing
-- **40% increase in medication adherence** - Better reminder system
-
-### Qualitative Feedback
-
-Patients reported:
-- "I can finally understand my test results"
-- "The app is so much easier to use now"
-- "I actually remember to take my medications"
-- "Scheduling appointments is a breeze"
-
-## Accessibility Improvements
-
-### Visual Accessibility
-
-- Increased contrast ratios
-- Larger font sizes
-- Clear visual hierarchy
-- Color-blind friendly palette
-- High contrast mode option
-
-### Interaction Accessibility
-
-- Larger touch targets (minimum 44x44px)
-- Clear focus states
-- Keyboard navigation support
-- Voice input support
-- Screen reader optimization
-
-### Content Accessibility
-
-- Plain language throughout
-- Medical term explanations
-- Multiple language support
-- Audio descriptions for charts
-- Text alternatives for images
-
-## Lessons Learned
-
-### What Worked Well
-
-- Extensive user research revealed critical insights
-- Visual data representation significantly improved comprehension
-- Proactive features increased engagement
-- Accessibility improvements benefited all users
-
-### Challenges Overcome
-
-- Simplifying complex medical information
-- Balancing simplicity with required functionality
-- Ensuring HIPAA compliance
-- Managing patient expectations
-
-### Future Enhancements
-
-- AI-powered health insights
-- Integration with wearable devices
-- Telemedicine capabilities
-- Family health management features
-- Enhanced medication management
-
-## External Links
-
-- [View Portfolio](https://pr4veen.designfolio.me)
+That reframing — from data display to patient communication — was the core design problem, and everything else followed from it.
