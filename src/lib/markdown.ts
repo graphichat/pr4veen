@@ -13,6 +13,7 @@ export interface ProjectMetadata {
   techStack: string[];
   category: string;
   featured: boolean;
+  draft?: boolean;
 }
 
 export interface Project extends ProjectMetadata {
@@ -60,6 +61,7 @@ export function loadProjects(): Project[] {
     }
     
     const data = module.frontmatter as ProjectMetadata;
+    if (data.draft) continue;
     const Component = module.default;
     const safeContent = typeof rawContent === "string" ? rawContent : "";
 
